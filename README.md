@@ -30,3 +30,12 @@ Follow [this guide](https://hacs.xyz/docs/faq/custom_repositories/) to add this 
 ### Manual Installation
 
 Copy `custom_components/ftms` into your Home Assistant `$HA_HOME/config` directory, then restart Home Assistant.
+
+## Disclaimer
+
+Since there is a lot of different equipment that I do not own, and given the fact that not all manufacturers follow the FTMS standard strictly, some functions may not work correctly or not work at all.
+Please create an [issue](https://github.com/dudanov/hassio-ftms/issues), and I will try to help solve the problem.
+
+## Support
+
+If you find the component useful and want to support me and my work, you can do this by sending me a donation in [TONs](https://ton.org/): `UQCji6LsYAYrJP-Rij7SPjJcL0wkblVDmIkoWVpvP2YydnlA`.
