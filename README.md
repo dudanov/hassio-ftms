@@ -8,6 +8,14 @@ Component capabilities:
 
 1. Automatically detect Bluetooth fitness devices nearby, notifying the user about it;
 2. Setup Wizard, which allows you to easily configure the device by determining its type and set of sensors in automatic or manual modes. The set of sensors can be changed.
+3. Collects training data from fitness equipment and allows you to set training parameters specific to the type of equipment.
+
+Supported fitness machines:
+
+1. **Treadmill**
+2. **Cross Trainer** (Elliptical Trainer)
+3. **Rower** (Rowing Machine)
+4. **Indoor Bike** (Spin Bike)
 
 Device view example for `FitShow FS-BT-D2 Indoor bike` fitness machine:
 
