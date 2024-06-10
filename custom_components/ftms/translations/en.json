@@ -2,50 +2,46 @@
   "config": {
     "step": {
       "user": {
-        "title": "Выбор тренажера",
-        "description": "Выберите тренажер для настройки из списка ниже.",
+        "title": "Select a fitness machine",
+        "description": "Select a fitness machine to set up from the list below.",
         "data": {
-          "address": "Доступные тренажеры:"
+          "address": "Available fitness machines:"
         }
       },
       "confirm": {
-        "title": "Выбор режима обнаружения",
-        "description": "Для опроса параметров Вашего тренажера **{name}** к нему будет выполнено подключение по Bluetooth.\n\nУбедитесь, что к нему не подключено никаких устройств, например, стороннего ПО для тренировок на мобильном устройстве.\n\nВвиду того, что тренажер может не предоставлять некоторые тренировочные данные или предоставлять без значений, есть возможность попытаться определить их автоматически. Для этого необходимо в этот момент интенсивно тренироваться в режиме одной из программ. После данного этапа Вы сможете изменить эти данные.",
+        "title": "Select discovery mode",
+        "description": "To poll the parameters of your fitness machine **{name}**, a connection will be made to it via Bluetooth.\n\nMake sure that there are no devices connected to it, for example, third-party training software on a mobile device.\n\nDue to the fact that the fitness machine may not provide some training data or provide dummy values, it is possible to try to determine them automatically. To do this, it is necessary to train intensively at this moment in one of the programs. After this stage you will be able to change this list.",
         "data": {
-          "discovery": "Режим обнаружения тренировочных данных:"
+          "discovery": "Training data discovery mode:"
         }
       },
       "information": {
-        "title": "Тренировочные данные",
-        "description": "Проверьте и при необходимости измените набор тренировочных данных Вашего тренажера. Это список сенсоров, создаваемых во время инициализации устройства. Вы сможете изменить его вручную в будущем.",
+        "title": "Training data set",
+        "description": "Check and, if necessary, change the training data set of your fitness machine. This is a list of sensors created during device initialization. You will be able to change it manually in the future.",
         "data": {
-          "sensors": "Выберите тренировочные данные:"
+          "sensors": "Select training data:"
         }
       }
     },
     "progress": {
-      "connecting": "Подключение, чтение информации об устройстве и возможностях тренажера",
-      "discovering": "Автоматический сбор тренировочной информации",
-      "closing": "Закрытие соединения и сохранение данных"
-    },
-    "error": {
-      "cannot_connect": "[%key:common::config_flow::error::cannot_connect%]",
-      "unknown": "[%key:common::config_flow::error::unknown%]"
+      "connecting": "Connection, reading device information and capabilities of the fitness machine...",
+      "discovering": "Automatic collection of training information...",
+      "closing": "Closing connection and saving the data..."
     },
     "abort": {
-      "not_supported": "Устройство не поддерживается.",
-      "already_in_progress": "Мастер настройки устройства уже выполняется.",
-      "already_configured": "Устройство уже сконфигурировано.",
-      "no_devices_found": "Устройств для конфигурирования не обнаружено."
+      "not_supported": "Device not supported.",
+      "already_in_progress": "Device setup wizard is already running.",
+      "already_configured": "The device is already configured.",
+      "no_devices_found": "No devices found to setup."
     }
   },
   "options": {
     "step": {
       "init": {
-        "title": "Тренировочные данные",
-        "description": "Настройка набора сенсоров тренировочных данных.",
+        "title": "Training data set",
+        "description": "Setting up a set of training data sensors.",
         "data": {
-          "sensors": "Выберите тренировочные данные:"
+          "sensors": "Select training data:"
         }
       }
     }
@@ -53,182 +49,182 @@
   "entity": {
     "sensor": {
       "cadence_average": {
-        "name": "Средний каденс"
+        "name": "Average cadence"
       },
       "cadence_instant": {
-        "name": "Каденс"
+        "name": "Cadence"
       },
       "distance_total": {
-        "name": "Расстояние"
+        "name": "Total distance"
       },
       "elevation_gain_negative": {
-        "name": "Глубина спуска"
+        "name": "Descent depth"
       },
       "elevation_gain_positive": {
-        "name": "Высота подъема"
+        "name": "Lifting height"
       },
       "energy_per_hour": {
-        "name": "Расход энергии за час"
+        "name": "Energy per hour"
       },
       "energy_per_minute": {
-        "name": "Расход энергии за минуту"
+        "name": "Energy per minute"
       },
       "energy_total": {
-        "name": "Затраты энергии"
+        "name": "Total expended energy"
       },
       "force_on_belt": {
-        "name": "Натяжение полотна"
+        "name": "Force on belt"
       },
       "heart_rate": {
-        "name": "Пульс"
+        "name": "Heart rate"
       },
       "inclination": {
-        "name": "Наклон"
+        "name": "Inclination"
       },
       "metabolic_equivalent": {
-        "name": "Метаболический эквивалент"
+        "name": "Metabolic equivalent"
       },
       "movement_direction": {
-        "name": "Направление"
+        "name": "Movement direction"
       },
       "pace_average": {
-        "name": "Средний темп"
+        "name": "Average pace"
       },
       "pace_instant": {
-        "name": "Темп"
+        "name": "Pace"
       },
       "power_average": {
-        "name": "Средняя мощность"
+        "name": "Average power"
       },
       "power_instant": {
-        "name": "Мощность"
+        "name": "Power"
       },
       "power_output": {
-        "name": "Выходная мощность"
+        "name": "Output power"
       },
       "ramp_angle": {
-        "name": "Наклон рампы"
+        "name": "Ramp angle"
       },
       "resistance_level": {
-        "name": "Уровень нагрузки"
+        "name": "Resistance level"
       },
       "speed_average": {
-        "name": "Средняя скорость"
+        "name": "Average speed"
       },
       "speed_instant": {
-        "name": "Скорость"
+        "name": "Speed"
       },
       "step_count": {
-        "name": "Шаги"
+        "name": "Step count"
       },
       "step_rate_average": {
-        "name": "Средняя частота шага"
+        "name": "Average step rate"
       },
       "step_rate_instant": {
-        "name": "Частота шага"
+        "name": "Step rate"
       },
       "stride_count": {
-        "name": "Полные шаги"
+        "name": "Stride count"
       },
       "stroke_count": {
-        "name": "Взмахи"
+        "name": "Stroke count"
       },
       "stroke_rate_average": {
-        "name": "Средняя частота взмахов"
+        "name": "Average stroke rate"
       },
       "stroke_rate_instant": {
-        "name": "Частота взмахов"
+        "name": "Stroke rate"
       },
       "time_elapsed": {
-        "name": "Время тренировки"
+        "name": "Elapsed time"
       },
       "time_remaining": {
-        "name": "Время до окончания тренировки"
+        "name": "Remaining time"
       }
     },
     "button": {
       "start": {
-        "name": "Начать/возобновить тренировку"
+        "name": "Start/resume training"
       },
       "stop": {
-        "name": "Остановить тренировку"
+        "name": "Stop training"
       },
       "pause": {
-        "name": "Приостановить тренировку"
+        "name": "Pause training"
       },
       "reset": {
-        "name": "Сбросить настройки"
+        "name": "Reset training"
       }
     },
     "number": {
       "target_resistance": {
-        "name": "Уровень нагрузки"
+        "name": "Target resistance"
       },
       "target_power": {
-        "name": "Мощность"
+        "name": "Target power"
       }
     },
     "switch": {
       "connection": {
-        "name": "Подключение"
+        "name": "Connection"
       }
     }
   },
   "selector": {
     "sensors": {
       "options": {
-        "cadence_average": "Средний каденс",
-        "cadence_instant": "Каденс",
-        "distance_total": "Расстояние",
-        "elevation_gain_negative": "Глубина спуска",
-        "elevation_gain_positive": "Высота подъема",
-        "energy_per_hour": "Расход энергии за час",
-        "energy_per_minute": "Расход энергии за минуту",
-        "energy_total": "Затраты энергии",
-        "force_on_belt": "Натяжение полотна",
-        "heart_rate": "Пульс",
-        "inclination": "Наклон",
-        "metabolic_equivalent": "Метаболический эквивалент",
-        "movement_direction": "Направление",
-        "pace_average": "Средний темп",
-        "pace_instant": "Темп",
-        "power_average": "Средняя мощность",
-        "power_instant": "Мощность",
-        "power_output": "Выходная мощность",
-        "ramp_angle": "Наклон рампы",
-        "resistance_level": "Уровень нагрузки",
-        "speed_average": "Средняя скорость",
-        "speed_instant": "Скорость",
-        "step_count": "Шаги",
-        "step_rate_average": "Средняя частота шага",
-        "step_rate_instant": "Частота шага",
-        "stride_count": "Полные шаги",
-        "stroke_count": "Взмахи",
-        "stroke_rate_average": "Средняя частота взмахов",
-        "stroke_rate_instant": "Частота взмахов",
-        "time_elapsed": "Время тренировки",
-        "time_remaining": "Время до окончания тренировки"
+        "cadence_average": "Average cadence",
+        "cadence_instant": "Cadence",
+        "distance_total": "Total distance",
+        "elevation_gain_negative": "Descent depth",
+        "elevation_gain_positive": "Lifting height",
+        "energy_per_hour": "Energy per hour",
+        "energy_per_minute": "Energy per minute",
+        "energy_total": "Total expended energy",
+        "force_on_belt": "Force on belt",
+        "heart_rate": "Heart rate",
+        "inclination": "Inclination",
+        "metabolic_equivalent": "Metabolic equivalent",
+        "movement_direction": "Movement direction",
+        "pace_average": "Average pace",
+        "pace_instant": "Pace",
+        "power_average": "Average power",
+        "power_instant": "Power",
+        "power_output": "Output power",
+        "ramp_angle": "Ramp angle",
+        "resistance_level": "Resistance level",
+        "speed_average": "Average speed",
+        "speed_instant": "Speed",
+        "step_count": "Step count",
+        "step_rate_average": "Average step rate",
+        "step_rate_instant": "Step rate",
+        "stride_count": "Stride count",
+        "stroke_count": "Stroke count",
+        "stroke_rate_average": "Average stroke rate",
+        "stroke_rate_instant": "Stroke rate",
+        "time_elapsed": "Elapsed time",
+        "time_remaining": "Remaining time"
       }
     },
     "discovery": {
       "options": {
-        "auto": "Автоматически (в течение 30 секунд)",
-        "manual": "Вручную (на основе списка рекомендации тренажера)"
+        "auto": "Auto (within 30 seconds)",
+        "manual": "Manual (based on the features report)"
       }
     }
   },
   "device": {
     "treadmill": {
-      "name": "Беговая дорожка"
+      "name": "Treadmill"
     },
     "cross_trainer": {
-      "name": "Эллиптический тренажер"
+      "name": "Cross trainer"
     },
     "rower": {
-      "name": "Гребной тренажер"
+      "name": "Rower"
     },
     "indoor_bike": {
-      "name": "Велотренажер"
+      "name": "Indoor bike"
     }
   }
 }
