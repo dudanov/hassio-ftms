@@ -9,6 +9,6 @@ Component capabilities:
 1. Automatically detect Bluetooth fitness devices nearby, notifying the user about it;
 2. Setup Wizard, which allows you to easily configure the device by determining its type and set of sensors in automatic or manual modes. The set of sensors can be changed.
 
-Device view of `Indoor bike` fitness machine:
+Device view example for `Indoor bike` fitness machine:
 
 ![image](images/main.png)
