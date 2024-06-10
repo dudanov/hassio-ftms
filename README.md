@@ -12,3 +12,13 @@ Component capabilities:
 Device view example for `FitShow FS-BT-D2 Indoor bike` fitness machine:
 
 ![image](images/main.png)
+
+## Installation
+
+### HACS
+
+Follow [this guide](https://hacs.xyz/docs/faq/custom_repositories/) to add this git repository as a custom HACS repository. Then install from HACS as normal.
+
+### Manual Installation
+
+Copy `custom_components/ftms` into your Home Assistant `$HA_HOME/config` directory, then restart Home Assistant.
