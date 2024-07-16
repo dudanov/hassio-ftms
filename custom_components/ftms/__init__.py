@@ -64,11 +64,13 @@ async def async_setup_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> bool
     assert ftms.machine_type.name
 
     unique_id = ftms.device_info.get("serial_number", ftms.address).lower()
+    name = f"{ftms.device_info.get("manufacturer", "FTMS")} {ftms.device_info.get("model", "Generic")}"
 
     device_info = dr.DeviceInfo(
         connections={(dr.CONNECTION_BLUETOOTH, ftms.address)},
         identifiers={(DOMAIN, unique_id)},
         translation_key=ftms.machine_type.name.lower(),
+        translation_placeholders={"name": name},
         **ftms.device_info,
     )
 
