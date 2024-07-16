@@ -118,6 +118,12 @@
       "speed_instant": {
         "name": "Speed"
       },
+      "split_time_average": {
+        "name": "Average split time"
+      },
+      "split_time_instant": {
+        "name": "Split time"
+      },
       "step_count": {
         "name": "Step count"
       },

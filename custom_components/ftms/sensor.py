@@ -41,7 +41,7 @@ _ELEVATION_GAIN_NEGATIVE = SensorEntityDescription(
     device_class=SensorDeviceClass.DISTANCE,
     native_unit_of_measurement=UnitOfLength.METERS,
     state_class=SensorStateClass.TOTAL,
-    icon="mdi:map-marker-distance",
+    icon="mdi:stairs-down",
 )
 
 _ELEVATION_GAIN_POSITIVE = SensorEntityDescription(
@@ -49,7 +49,7 @@ _ELEVATION_GAIN_POSITIVE = SensorEntityDescription(
     device_class=SensorDeviceClass.DISTANCE,
     native_unit_of_measurement=UnitOfLength.METERS,
     state_class=SensorStateClass.TOTAL,
-    icon="mdi:map-marker-distance",
+    icon="mdi:stairs-up",
 )
 
 _ENERGY_PER_HOUR = SensorEntityDescription(
@@ -89,7 +89,7 @@ _HEART_RATE = SensorEntityDescription(
 
 _INCLINATION = SensorEntityDescription(
     key=c.INCLINATION,
-    icon="mdi:heart-pulse",
+    icon="mdi:angle-acute",
     native_unit_of_measurement="%",
     state_class=SensorStateClass.MEASUREMENT,
 )
@@ -103,7 +103,7 @@ _METABOLIC_EQUIVALENT = SensorEntityDescription(
 
 _MOVEMENT_DIRECTION = SensorEntityDescription(
     key=c.MOVEMENT_DIRECTION,
-    icon="mdi:heart-pulse",
+    icon="mdi:swap-horizontal-bold",
     device_class=SensorDeviceClass.ENUM,
     options=["forward", "backward"],
 )
@@ -113,6 +113,7 @@ _PACE_AVERAGE = SensorEntityDescription(
     device_class=SensorDeviceClass.SPEED,
     native_unit_of_measurement=UnitOfSpeed.KILOMETERS_PER_HOUR,
     state_class=SensorStateClass.MEASUREMENT,
+    icon="mdi:run",
 )
 
 _PACE_INSTANT = SensorEntityDescription(
@@ -120,6 +121,7 @@ _PACE_INSTANT = SensorEntityDescription(
     device_class=SensorDeviceClass.SPEED,
     native_unit_of_measurement=UnitOfSpeed.KILOMETERS_PER_HOUR,
     state_class=SensorStateClass.MEASUREMENT,
+    icon="mdi:run",
 )
 
 _POWER_AVERAGE = SensorEntityDescription(
@@ -174,6 +176,7 @@ _SPLIT_TIME_AVERAGE = SensorEntityDescription(
     device_class=SensorDeviceClass.DURATION,
     native_unit_of_measurement=UnitOfTime.SECONDS,
     state_class=SensorStateClass.MEASUREMENT,
+    icon="mdi:rowing",
 )
 
 _SPLIT_TIME_INSTANT = SensorEntityDescription(
@@ -181,6 +184,7 @@ _SPLIT_TIME_INSTANT = SensorEntityDescription(
     device_class=SensorDeviceClass.DURATION,
     native_unit_of_measurement=UnitOfTime.SECONDS,
     state_class=SensorStateClass.MEASUREMENT,
+    icon="mdi:rowing",
 )
 
 _STEP_RATE_AVERAGE = SensorEntityDescription(
@@ -238,7 +242,7 @@ _TIME_REMAINING = SensorEntityDescription(
     device_class=SensorDeviceClass.DURATION,
     native_unit_of_measurement=UnitOfTime.SECONDS,
     state_class=SensorStateClass.TOTAL,
-    icon="mdi:timer-play",
+    icon="mdi:timer-stop",
 )
 
 _ENTITIES = {

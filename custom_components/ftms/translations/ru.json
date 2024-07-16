@@ -118,6 +118,12 @@
       "speed_instant": {
         "name": "Скорость"
       },
+      "split_time_average": {
+        "name": "Средний темп гребли"
+      },
+      "split_time_instant": {
+        "name": "Темп гребли"
+      },
       "step_count": {
         "name": "Шаги"
       },
