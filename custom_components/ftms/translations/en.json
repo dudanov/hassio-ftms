@@ -49,19 +49,19 @@
   "entity": {
     "sensor": {
       "cadence_average": {
-        "name": "Average cadence"
+        "name": "Cadence average"
       },
       "cadence_instant": {
         "name": "Cadence"
       },
       "distance_total": {
-        "name": "Total distance"
+        "name": "Distance total"
       },
       "elevation_gain_negative": {
-        "name": "Descent depth"
+        "name": "Elevation gain negative"
       },
       "elevation_gain_positive": {
-        "name": "Lifting height"
+        "name": "Elevation gain positive"
       },
       "energy_per_hour": {
         "name": "Energy per hour"
@@ -70,7 +70,7 @@
         "name": "Energy per minute"
       },
       "energy_total": {
-        "name": "Total expended energy"
+        "name": "Energy total"
       },
       "force_on_belt": {
         "name": "Force on belt"
@@ -92,19 +92,19 @@
         }
       },
       "pace_average": {
-        "name": "Average pace"
+        "name": "Pace average"
       },
       "pace_instant": {
         "name": "Pace"
       },
       "power_average": {
-        "name": "Average power"
+        "name": "Power average"
       },
       "power_instant": {
         "name": "Power"
       },
       "power_output": {
-        "name": "Output power"
+        "name": "Power output"
       },
       "ramp_angle": {
         "name": "Ramp angle"
@@ -113,13 +113,13 @@
         "name": "Resistance level"
       },
       "speed_average": {
-        "name": "Average speed"
+        "name": "Speed average"
       },
       "speed_instant": {
         "name": "Speed"
       },
       "split_time_average": {
-        "name": "Average split time"
+        "name": "Split time average"
       },
       "split_time_instant": {
         "name": "Split time"
@@ -128,7 +128,7 @@
         "name": "Step count"
       },
       "step_rate_average": {
-        "name": "Average step rate"
+        "name": "Step rate average"
       },
       "step_rate_instant": {
         "name": "Step rate"
@@ -140,30 +140,30 @@
         "name": "Stroke count"
       },
       "stroke_rate_average": {
-        "name": "Average stroke rate"
+        "name": "Stroke rate average"
       },
       "stroke_rate_instant": {
         "name": "Stroke rate"
       },
       "time_elapsed": {
-        "name": "Elapsed time"
+        "name": "Time elapsed"
       },
       "time_remaining": {
-        "name": "Remaining time"
+        "name": "Time remaining"
       }
     },
     "button": {
       "start": {
-        "name": "Start/resume training"
+        "name": "Start/resume"
       },
       "stop": {
-        "name": "Stop training"
+        "name": "Stop"
       },
       "pause": {
-        "name": "Pause training"
+        "name": "Pause"
       },
       "reset": {
-        "name": "Reset training"
+        "name": "Reset"
       }
     },
     "number": {
@@ -183,37 +183,37 @@
   "selector": {
     "sensors": {
       "options": {
-        "cadence_average": "Average cadence",
+        "cadence_average": "Cadence average",
         "cadence_instant": "Cadence",
-        "distance_total": "Total distance",
-        "elevation_gain_negative": "Descent depth",
-        "elevation_gain_positive": "Lifting height",
+        "distance_total": "Distance total",
+        "elevation_gain_negative": "Elevation gain negative",
+        "elevation_gain_positive": "Elevation gain positive",
         "energy_per_hour": "Energy per hour",
         "energy_per_minute": "Energy per minute",
-        "energy_total": "Total expended energy",
+        "energy_total": "Energy total",
         "force_on_belt": "Force on belt",
         "heart_rate": "Heart rate",
         "inclination": "Inclination",
         "metabolic_equivalent": "Metabolic equivalent",
         "movement_direction": "Movement direction",
-        "pace_average": "Average pace",
+        "pace_average": "Pace average",
         "pace_instant": "Pace",
-        "power_average": "Average power",
+        "power_average": "Power average",
         "power_instant": "Power",
-        "power_output": "Output power",
+        "power_output": "Power output",
         "ramp_angle": "Ramp angle",
         "resistance_level": "Resistance level",
-        "speed_average": "Average speed",
+        "speed_average": "Speed average",
         "speed_instant": "Speed",
         "step_count": "Step count",
-        "step_rate_average": "Average step rate",
+        "step_rate_average": "Step rate average",
         "step_rate_instant": "Step rate",
         "stride_count": "Stride count",
         "stroke_count": "Stroke count",
-        "stroke_rate_average": "Average stroke rate",
+        "stroke_rate_average": "Stroke rate average",
         "stroke_rate_instant": "Stroke rate",
-        "time_elapsed": "Elapsed time",
-        "time_remaining": "Remaining time"
+        "time_elapsed": "Time elapsed",
+        "time_remaining": "Time remaining"
       }
     },
     "discovery": {
