@@ -85,7 +85,11 @@
         "name": "Метаболический эквивалент"
       },
       "movement_direction": {
-        "name": "Направление"
+        "name": "Направление движения",
+        "state": {
+          "forward": "Вперед",
+          "backward": "Назад"
+        }
       },
       "pace_average": {
         "name": "Средний темп"

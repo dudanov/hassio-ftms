@@ -85,7 +85,11 @@
         "name": "Metabolic equivalent"
       },
       "movement_direction": {
-        "name": "Movement direction"
+        "name": "Movement direction",
+        "state": {
+          "forward": "Forward",
+          "backward": "Backward"
+        }
       },
       "pace_average": {
         "name": "Average pace"

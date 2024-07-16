@@ -105,11 +105,62 @@ _MOVEMENT_DIRECTION = SensorEntityDescription(
     key=c.MOVEMENT_DIRECTION,
     icon="mdi:heart-pulse",
     device_class=SensorDeviceClass.ENUM,
-    state_class=SensorStateClass.MEASUREMENT,
-    options=[],
+    options=["forward", "backward"],
 )
 
+_PACE_AVERAGE = SensorEntityDescription(
+    key=c.PACE_AVERAGE,
+    device_class=SensorDeviceClass.SPEED,
+    native_unit_of_measurement=UnitOfSpeed.KILOMETERS_PER_HOUR,
+    state_class=SensorStateClass.MEASUREMENT,
+)
 
+_PACE_INSTANT = SensorEntityDescription(
+    key=c.PACE_INSTANT,
+    device_class=SensorDeviceClass.SPEED,
+    native_unit_of_measurement=UnitOfSpeed.KILOMETERS_PER_HOUR,
+    state_class=SensorStateClass.MEASUREMENT,
+)
+
+_POWER_AVERAGE = SensorEntityDescription(
+    key=c.POWER_AVERAGE,
+    device_class=SensorDeviceClass.POWER,
+    native_unit_of_measurement=UnitOfPower.WATT,
+    state_class=SensorStateClass.MEASUREMENT,
+)
+
+_POWER_INSTANT = SensorEntityDescription(
+    key=c.POWER_INSTANT,
+    device_class=SensorDeviceClass.POWER,
+    native_unit_of_measurement=UnitOfPower.WATT,
+    state_class=SensorStateClass.MEASUREMENT,
+)
+
+_POWER_OUTPUT = SensorEntityDescription(
+    key=c.POWER_OUTPUT,
+    device_class=SensorDeviceClass.POWER,
+    native_unit_of_measurement=UnitOfPower.WATT,
+    state_class=SensorStateClass.MEASUREMENT,
+)
+
+_RAMP_ANGLE = SensorEntityDescription(
+    key=c.RAMP_ANGLE,
+    device_class=SensorDeviceClass.POWER,
+    native_unit_of_measurement=UnitOfPower.WATT,
+    state_class=SensorStateClass.MEASUREMENT,
+)
+
+_RESISTANCE_LEVEL = SensorEntityDescription(
+    key=c.RESISTANCE_LEVEL,
+    icon="mdi:chart-timeline-variant",
+)
+
+_SPEED_AVERAGE = SensorEntityDescription(
+    key=c.SPEED_AVERAGE,
+    device_class=SensorDeviceClass.SPEED,
+    native_unit_of_measurement=UnitOfSpeed.KILOMETERS_PER_HOUR,
+    state_class=SensorStateClass.MEASUREMENT,
+)
 
 _SPEED_INSTANT = SensorEntityDescription(
     key=c.SPEED_INSTANT,
@@ -118,16 +169,59 @@ _SPEED_INSTANT = SensorEntityDescription(
     state_class=SensorStateClass.MEASUREMENT,
 )
 
-
-_RESISTANCE_LEVEL = SensorEntityDescription(
-    key=c.RESISTANCE_LEVEL,
-    icon="mdi:chart-timeline-variant",
+_SPLIT_TIME_AVERAGE = SensorEntityDescription(
+    key=c.SPLIT_TIME_AVERAGE,
+    device_class=SensorDeviceClass.DURATION,
+    native_unit_of_measurement=UnitOfTime.SECONDS,
+    state_class=SensorStateClass.MEASUREMENT,
 )
 
-_POWER_INSTANT = SensorEntityDescription(
-    key=c.POWER_INSTANT,
-    device_class=SensorDeviceClass.POWER,
-    native_unit_of_measurement=UnitOfPower.WATT,
+_SPLIT_TIME_INSTANT = SensorEntityDescription(
+    key=c.SPLIT_TIME_INSTANT,
+    device_class=SensorDeviceClass.DURATION,
+    native_unit_of_measurement=UnitOfTime.SECONDS,
+    state_class=SensorStateClass.MEASUREMENT,
+)
+
+_STEP_RATE_AVERAGE = SensorEntityDescription(
+    key=c.STEP_RATE_AVERAGE,
+    device_class=SensorDeviceClass.DURATION,
+    native_unit_of_measurement=UnitOfTime.SECONDS,
+    state_class=SensorStateClass.MEASUREMENT,
+)
+
+_STEP_RATE_INSTANT = SensorEntityDescription(
+    key=c.STEP_RATE_INSTANT,
+    device_class=SensorDeviceClass.DURATION,
+    native_unit_of_measurement=UnitOfTime.SECONDS,
+    state_class=SensorStateClass.MEASUREMENT,
+)
+
+_STRIDE_COUNT = SensorEntityDescription(
+    key=c.STRIDE_COUNT,
+    device_class=SensorDeviceClass.DURATION,
+    native_unit_of_measurement=UnitOfTime.SECONDS,
+    state_class=SensorStateClass.MEASUREMENT,
+)
+
+_STROKE_COUNT = SensorEntityDescription(
+    key=c.STROKE_COUNT,
+    device_class=SensorDeviceClass.DURATION,
+    native_unit_of_measurement=UnitOfTime.SECONDS,
+    state_class=SensorStateClass.MEASUREMENT,
+)
+
+_STROKE_RATE_AVERAGE = SensorEntityDescription(
+    key=c.STROKE_RATE_AVERAGE,
+    device_class=SensorDeviceClass.DURATION,
+    native_unit_of_measurement=UnitOfTime.SECONDS,
+    state_class=SensorStateClass.MEASUREMENT,
+)
+
+_STROKE_RATE_INSTANT = SensorEntityDescription(
+    key=c.STROKE_RATE_INSTANT,
+    device_class=SensorDeviceClass.DURATION,
+    native_unit_of_measurement=UnitOfTime.SECONDS,
     state_class=SensorStateClass.MEASUREMENT,
 )
 
@@ -139,15 +233,47 @@ _TIME_ELAPSED = SensorEntityDescription(
     icon="mdi:timer-play",
 )
 
+_TIME_REMAINING = SensorEntityDescription(
+    key=c.TIME_REMAINING,
+    device_class=SensorDeviceClass.DURATION,
+    native_unit_of_measurement=UnitOfTime.SECONDS,
+    state_class=SensorStateClass.TOTAL,
+    icon="mdi:timer-play",
+)
+
 _ENTITIES = {
+    c.CADENCE_AVERAGE: _CADENCE_AVERAGE,
     c.CADENCE_INSTANT: _CADENCE_INSTANT,
-    c.SPEED_INSTANT: _SPEED_INSTANT,
     c.DISTANCE_TOTAL: _DISTANCE_TOTAL,
-    c.RESISTANCE_LEVEL: _RESISTANCE_LEVEL,
-    c.HEART_RATE: _HEART_RATE,
-    c.POWER_INSTANT: _POWER_INSTANT,
-    c.TIME_ELAPSED: _TIME_ELAPSED,
+    c.ELEVATION_GAIN_NEGATIVE: _ELEVATION_GAIN_NEGATIVE,
+    c.ELEVATION_GAIN_POSITIVE: _ELEVATION_GAIN_POSITIVE,
+    c.ENERGY_PER_HOUR: _ENERGY_PER_HOUR,
+    c.ENERGY_PER_MINUTE: _ENERGY_PER_MINUTE,
     c.ENERGY_TOTAL: _ENERGY_TOTAL,
+    c.FORCE_ON_BELT: _FORCE_ON_BELT,
+    c.HEART_RATE: _HEART_RATE,
+    c.INCLINATION: _INCLINATION,
+    c.METABOLIC_EQUIVALENT: _METABOLIC_EQUIVALENT,
+    c.MOVEMENT_DIRECTION: _MOVEMENT_DIRECTION,
+    c.PACE_AVERAGE: _PACE_AVERAGE,
+    c.PACE_INSTANT: _PACE_INSTANT,
+    c.POWER_AVERAGE: _POWER_AVERAGE,
+    c.POWER_INSTANT: _POWER_INSTANT,
+    c.POWER_OUTPUT: _POWER_OUTPUT,
+    c.RAMP_ANGLE: _RAMP_ANGLE,
+    c.RESISTANCE_LEVEL: _RESISTANCE_LEVEL,
+    c.SPEED_AVERAGE: _SPEED_AVERAGE,
+    c.SPEED_INSTANT: _SPEED_INSTANT,
+    c.SPLIT_TIME_AVERAGE: _SPLIT_TIME_AVERAGE,
+    c.SPLIT_TIME_INSTANT: _SPLIT_TIME_INSTANT,
+    c.STEP_RATE_AVERAGE: _STEP_RATE_AVERAGE,
+    c.STEP_RATE_INSTANT: _STEP_RATE_INSTANT,
+    c.STRIDE_COUNT: _STRIDE_COUNT,
+    c.STROKE_COUNT: _STROKE_COUNT,
+    c.STROKE_RATE_AVERAGE: _STROKE_RATE_AVERAGE,
+    c.STROKE_RATE_INSTANT: _STROKE_RATE_INSTANT,
+    c.TIME_ELAPSED: _TIME_ELAPSED,
+    c.TIME_REMAINING: _TIME_REMAINING,
 }
 
 
@@ -166,7 +292,6 @@ async def async_setup_entry(
             description=_ENTITIES[key],
         )
         for key in data.sensors
-        if key in _ENTITIES
     ]
 
     async_add_entities(entities)
