@@ -28,21 +28,14 @@ class FtmsEntity(CoordinatorEntity[DataCoordinator], Entity):
         self.entity_description = description
         self._data = entry.runtime_data
         self._attr_unique_id = f"{self._data.unique_id}-{self.key}"
+        self._attr_device_info = self._data.device_info
+        self._attr_translation_key = self.key
 
         super().__init__(self._data.coordinator)
 
     @property
-    def device_info(self):
-        return self._data.device_info
-
-    @property
     def key(self) -> str:
         return self.entity_description.key
-
-    @property
-    def translation_key(self):
-        """Return the translation key to translate the entity's name and states."""
-        return self.key
 
     @property
     def available(self) -> bool:

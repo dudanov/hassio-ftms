@@ -215,16 +215,16 @@
   },
   "device": {
     "treadmill": {
-      "name": "Treadmill {name}"
+      "name": "Treadmill"
     },
     "cross_trainer": {
-      "name": "Cross trainer {name}"
+      "name": "Cross trainer"
     },
     "rower": {
-      "name": "Rower {name}"
+      "name": "Rower"
     },
     "indoor_bike": {
-      "name": "Indoor bike {name}"
+      "name": "Indoor bike"
     }
   }
 }
