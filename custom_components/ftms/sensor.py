@@ -14,12 +14,101 @@ from .entity import FtmsEntity
 
 _LOGGER = logging.getLogger(__name__)
 
+_CADENCE_AVERAGE = SensorEntityDescription(
+    key=c.CADENCE_AVERAGE,
+    native_unit_of_measurement="rpm",
+    state_class=SensorStateClass.MEASUREMENT,
+    icon="mdi:horizontal-rotate-counterclockwise",
+)
+
 _CADENCE_INSTANT = SensorEntityDescription(
     key=c.CADENCE_INSTANT,
     native_unit_of_measurement="rpm",
     state_class=SensorStateClass.MEASUREMENT,
     icon="mdi:horizontal-rotate-counterclockwise",
 )
+
+_DISTANCE_TOTAL = SensorEntityDescription(
+    key=c.DISTANCE_TOTAL,
+    device_class=SensorDeviceClass.DISTANCE,
+    native_unit_of_measurement=UnitOfLength.METERS,
+    state_class=SensorStateClass.TOTAL,
+    icon="mdi:map-marker-distance",
+)
+
+_ELEVATION_GAIN_NEGATIVE = SensorEntityDescription(
+    key=c.ELEVATION_GAIN_NEGATIVE,
+    device_class=SensorDeviceClass.DISTANCE,
+    native_unit_of_measurement=UnitOfLength.METERS,
+    state_class=SensorStateClass.TOTAL,
+    icon="mdi:map-marker-distance",
+)
+
+_ELEVATION_GAIN_POSITIVE = SensorEntityDescription(
+    key=c.ELEVATION_GAIN_POSITIVE,
+    device_class=SensorDeviceClass.DISTANCE,
+    native_unit_of_measurement=UnitOfLength.METERS,
+    state_class=SensorStateClass.TOTAL,
+    icon="mdi:map-marker-distance",
+)
+
+_ENERGY_PER_HOUR = SensorEntityDescription(
+    key=c.ENERGY_PER_HOUR,
+    native_unit_of_measurement="kcal",
+    state_class=SensorStateClass.MEASUREMENT,
+    icon="mdi:food",
+)
+
+_ENERGY_PER_MINUTE = SensorEntityDescription(
+    key=c.ENERGY_PER_MINUTE,
+    native_unit_of_measurement="kcal",
+    state_class=SensorStateClass.MEASUREMENT,
+    icon="mdi:food",
+)
+
+_ENERGY_TOTAL = SensorEntityDescription(
+    key=c.ENERGY_TOTAL,
+    native_unit_of_measurement="kcal",
+    state_class=SensorStateClass.TOTAL,
+    icon="mdi:food",
+)
+
+_FORCE_ON_BELT = SensorEntityDescription(
+    key=c.FORCE_ON_BELT,
+    native_unit_of_measurement="N",
+    state_class=SensorStateClass.MEASUREMENT,
+    icon="mdi:food",
+)
+
+_HEART_RATE = SensorEntityDescription(
+    key=c.HEART_RATE,
+    icon="mdi:heart-pulse",
+    native_unit_of_measurement="bpm",
+    state_class=SensorStateClass.MEASUREMENT,
+)
+
+_INCLINATION = SensorEntityDescription(
+    key=c.INCLINATION,
+    icon="mdi:heart-pulse",
+    native_unit_of_measurement="%",
+    state_class=SensorStateClass.MEASUREMENT,
+)
+
+_METABOLIC_EQUIVALENT = SensorEntityDescription(
+    key=c.METABOLIC_EQUIVALENT,
+    icon="mdi:heart-pulse",
+    native_unit_of_measurement="meta",
+    state_class=SensorStateClass.MEASUREMENT,
+)
+
+_MOVEMENT_DIRECTION = SensorEntityDescription(
+    key=c.MOVEMENT_DIRECTION,
+    icon="mdi:heart-pulse",
+    device_class=SensorDeviceClass.ENUM,
+    state_class=SensorStateClass.MEASUREMENT,
+    options=[],
+)
+
 
 
 _SPEED_INSTANT = SensorEntityDescription(
@@ -30,24 +119,9 @@ _SPEED_INSTANT = SensorEntityDescription(
 )
 
 
-_DISTANCE_TOTAL = SensorEntityDescription(
-    key=c.DISTANCE_TOTAL,
-    device_class=SensorDeviceClass.DISTANCE,
-    native_unit_of_measurement=UnitOfLength.METERS,
-    state_class=SensorStateClass.TOTAL,
-    icon="mdi:map-marker-distance",
-)
-
 _RESISTANCE_LEVEL = SensorEntityDescription(
     key=c.RESISTANCE_LEVEL,
     icon="mdi:chart-timeline-variant",
-)
-
-_HEART_RATE = SensorEntityDescription(
-    key=c.HEART_RATE,
-    icon="mdi:heart-pulse",
-    native_unit_of_measurement="bpm",
-    state_class=SensorStateClass.MEASUREMENT,
 )
 
 _POWER_INSTANT = SensorEntityDescription(
@@ -63,13 +137,6 @@ _TIME_ELAPSED = SensorEntityDescription(
     native_unit_of_measurement=UnitOfTime.SECONDS,
     state_class=SensorStateClass.TOTAL,
     icon="mdi:timer-play",
-)
-
-_ENERGY_TOTAL = SensorEntityDescription(
-    key=c.ENERGY_TOTAL,
-    native_unit_of_measurement="kcal",
-    state_class=SensorStateClass.TOTAL,
-    icon="mdi:food",
 )
 
 _ENTITIES = {
