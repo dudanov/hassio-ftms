@@ -239,10 +239,10 @@
   },
   "exceptions": {
     "device_not_found": {
-      "message": "Bluetooth device '{address}' not found."
+      "message": "Bluetooth device {address} not found."
     },
     "connection_failed": {
-      "message": "Failed connect to Bluetooth device '{address}'."
+      "message": "Failed connect to Bluetooth device {address}."
     }
   }
 }
