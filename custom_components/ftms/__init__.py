@@ -16,6 +16,7 @@ from homeassistant.core import Event, HomeAssistant, callback
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers import device_registry as dr
 
+from .connect import ftms_connect
 from .const import DOMAIN
 from .coordinator import DataCoordinator
 from .models import FtmsData
@@ -47,7 +48,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> bool
     address: str = entry.data[CONF_ADDRESS]
 
     if not (srv_info := bluetooth.async_last_service_info(hass, address)):
-        raise ConfigEntryNotReady(f"Bluetooth device '{address}' not found.")
+        raise ConfigEntryNotReady(
+            translation_key="device_not_found",
+            translation_placeholders={"address": address},
+        )
 
     def _on_disconnect(ftms_: pyftms.FitnessMachine) -> None:
         """Disconnect handler. Reload entry on disconnect."""
@@ -59,7 +63,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> bool
     ftms.set_disconnect_callback(_on_disconnect)
     coordinator = DataCoordinator(hass, ftms)
 
-    await ftms.connect()
+    await ftms_connect(ftms)
 
     assert ftms.machine_type.name
 
