@@ -50,14 +50,16 @@ async def async_setup_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> bool
     if not (srv_info := bluetooth.async_last_service_info(hass, mac)):
         raise ConfigEntryNotReady(
             translation_key="device_not_found",
-            translation_placeholders={"address": mac},
+            translation_placeholders={CONF_MAC: mac},
         )
 
     def _on_disconnect(ftms_: pyftms.FitnessMachine) -> None:
         """Disconnect handler. Reload entry on disconnect."""
 
-        if ftms_.need_connect:
-            hass.config_entries.async_schedule_reload(entry.entry_id)
+        raise ConfigEntryNotReady(
+            translation_key="device_disconnected",
+            translation_placeholders={CONF_MAC: mac},
+        )
 
     ftms = pyftms.get_client(srv_info.device, srv_info.advertisement)
     ftms.set_disconnect_callback(_on_disconnect)

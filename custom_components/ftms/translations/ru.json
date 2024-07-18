@@ -243,6 +243,9 @@
     "device_not_found": {
       "message": "Bluetooth устройство {mac} не найдено."
     },
+    "device_disconnected": {
+      "message": "Соединение с Bluetooth устройством {mac} потеряно."
+    },
     "connection_failed": {
       "message": "Ошибка соединения с Bluetooth устройством {mac}."
     }
