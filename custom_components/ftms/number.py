@@ -20,12 +20,10 @@ _LOGGER = logging.getLogger(__name__)
 
 _RESISTANCE_LEVEL: dict[str, Any] = {
     "key": c.TARGET_RESISTANCE,
-    "icon": "mdi:chart-timeline-variant",
 }
 
 _POWER: dict[str, Any] = {
     "key": c.TARGET_POWER,
-    "icon": "mdi:chart-timeline-variant",
     "device_class": NumberDeviceClass.POWER,
     "native_unit_of_measurement": UnitOfPower.WATT,
 }

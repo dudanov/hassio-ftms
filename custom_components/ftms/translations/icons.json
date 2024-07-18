@@ -1,5 +1,123 @@
 {
   "entity": {
+    "button": {
+      "start": {
+        "default": "mdi:timer-play"
+      },
+      "stop": {
+        "default": "mdi:timer-stop"
+      },
+      "pause": {
+        "default": "mdi:timer-pause"
+      },
+      "reset": {
+        "default": "mdi:lock-reset"
+      }
+    },
+    "number": {
+      "target_resistance": {
+        "default": "mdi:chart-timeline-variant"
+      },
+      "target_power": {
+        "default": "mdi:chart-timeline-variant"
+      }
+    },
+    "sensor": {
+      "cadence_average": {
+        "default": "mdi:horizontal-rotate-counterclockwise"
+      },
+      "cadence_instant": {
+        "default": "mdi:horizontal-rotate-counterclockwise"
+      },
+      "distance_total": {
+        "default": "mdi:map-marker-distance"
+      },
+      "elevation_gain_negative": {
+        "default": "mdi:stairs-down"
+      },
+      "elevation_gain_positive": {
+        "default": "mdi:stairs-up"
+      },
+      "energy_per_hour": {
+        "default": "mdi:food"
+      },
+      "energy_per_minute": {
+        "default": "mdi:food"
+      },
+      "energy_total": {
+        "default": "mdi:food"
+      },
+      "force_on_belt": {
+        "default": "mdi:food"
+      },
+      "heart_rate": {
+        "default": "mdi:heart-pulse"
+      },
+      "inclination": {
+        "default": "mdi:angle-acute"
+      },
+      "metabolic_equivalent": {
+        "default": "mdi:heart-pulse"
+      },
+      "movement_direction": {
+        "default": "mdi:arrow-left-right-bold-outline",
+        "state": {
+          "forward": "mdi:arrow-right-bold-outline",
+          "backward": "mdi:arrow-left-bold-outline"
+        }
+      },
+      "pace_average": {
+        "default": "mdi:run"
+      },
+      "pace_instant": {
+        "default": "mdi:run"
+      },
+      "power_average": {
+        "default": "mdi:run"
+      },
+      "power_instant": {
+        "default": "mdi:run"
+      },
+      "power_output": {
+        "default": "mdi:run"
+      },
+      "ramp_angle": {
+        "default": "mdi:angle-acute"
+      },
+      "resistance_level": {
+        "default": "mdi:chart-timeline-variant"
+      },
+      "split_time_average": {
+        "default": "mdi:rowing"
+      },
+      "split_time_instant": {
+        "default": "mdi:rowing"
+      },
+      "step_rate_average": {
+        "default": "mdi:run"
+      },
+      "step_rate_instant": {
+        "default": "mdi:run"
+      },
+      "stride_count": {
+        "default": "mdi:run"
+      },
+      "stroke_count": {
+        "default": "mdi:rowing"
+      },
+      "stroke_rate_average": {
+        "default": "mdi:rowing"
+      },
+      "stroke_rate_instant": {
+        "default": "mdi:rowing"
+      },
+      "time_elapsed": {
+        "default": "mdi:timer-play"
+      },
+      "time_remaining": {
+        "default": "mdi:timer-stop"
+      }
+    },
     "switch": {
       "connection": {
         "default": "mdi:bluetooth-off",

@@ -13,31 +13,11 @@ from .entity import FtmsEntity
 
 _LOGGER = logging.getLogger(__name__)
 
-_RESET = ButtonEntityDescription(
-    key=c.RESET,
-    icon="mdi:lock-reset",
-)
-
-_STOP = ButtonEntityDescription(
-    key=c.STOP,
-    icon="mdi:timer-stop",
-)
-
-_START = ButtonEntityDescription(
-    key=c.START,
-    icon="mdi:timer-play",
-)
-
-_PAUSE = ButtonEntityDescription(
-    key=c.PAUSE,
-    icon="mdi:timer-pause",
-)
-
 _ENTITIES = (
-    _RESET,
-    _STOP,
-    _START,
-    _PAUSE,
+    c.RESET,
+    c.STOP,
+    c.START,
+    c.PAUSE,
 )
 
 
@@ -51,7 +31,7 @@ async def async_setup_entry(
     entities = [
         FtmsButtonEntity(
             entry=entry,
-            description=description,
+            description=ButtonEntityDescription(key=description),
         )
         for description in _ENTITIES
     ]
