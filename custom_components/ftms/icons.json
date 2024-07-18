@@ -1,7 +1,7 @@
 {
   "entity": {
     "switch": {
-      "climate": {
+      "connection": {
         "default": "mdi:bluetooth",
         "state": {
           "off": "mdi:bluetooth-off"
