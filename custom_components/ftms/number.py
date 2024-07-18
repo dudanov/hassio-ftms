@@ -1,7 +1,7 @@
 """FTMS integration button platform."""
 
+import dataclasses as dc
 import logging
-from typing import Any
 
 from homeassistant.components.number import (
     NumberDeviceClass,
@@ -18,15 +18,15 @@ from .entity import FtmsEntity
 
 _LOGGER = logging.getLogger(__name__)
 
-_RESISTANCE_LEVEL: dict[str, Any] = {
-    "key": c.TARGET_RESISTANCE,
-}
+_RESISTANCE_LEVEL = NumberEntityDescription(
+    key=c.TARGET_RESISTANCE,
+)
 
-_POWER: dict[str, Any] = {
-    "key": c.TARGET_POWER,
-    "device_class": NumberDeviceClass.POWER,
-    "native_unit_of_measurement": UnitOfPower.WATT,
-}
+_POWER = NumberEntityDescription(
+    key=c.TARGET_POWER,
+    device_class=NumberDeviceClass.POWER,
+    native_unit_of_measurement=UnitOfPower.WATT,
+)
 
 
 _ENTITIES = (
@@ -45,15 +45,15 @@ async def async_setup_entry(
     entities, ranges_ = [], entry.runtime_data.ftms.supported_ranges
 
     for desc in _ENTITIES:
-        if range_ := ranges_.get(desc["key"]):
+        if range_ := ranges_.get(desc.key):
             entities.append(
                 FtmsNumberEntity(
                     entry=entry,
-                    description=NumberEntityDescription(
+                    description=dc.replace(
+                        desc,
                         native_min_value=range_.min_value,
                         native_max_value=range_.max_value,
                         native_step=range_.step,
-                        **desc,
                     ),
                 )
             )

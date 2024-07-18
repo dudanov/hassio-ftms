@@ -22,9 +22,9 @@ from .coordinator import DataCoordinator
 from .models import FtmsData
 
 PLATFORMS: list[Platform] = [
-    Platform.SENSOR,
     Platform.BUTTON,
     Platform.NUMBER,
+    Platform.SENSOR,
     Platform.SWITCH,
 ]
 
