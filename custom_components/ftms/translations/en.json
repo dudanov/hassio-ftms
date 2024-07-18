@@ -5,7 +5,7 @@
         "title": "Select a fitness machine",
         "description": "Select a fitness machine to set up from the list below.",
         "data": {
-          "address": "Available fitness machines:"
+          "mac": "Discovered fitness machines:"
         }
       },
       "confirm": {
