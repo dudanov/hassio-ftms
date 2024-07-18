@@ -118,13 +118,13 @@ class FTMSConfigFlow(ConfigFlow, domain=DOMAIN):
 
         configured = self._async_current_ids()
 
-        for dev in async_discovered_service_info(self.hass):
-            if dev.address in configured:
+        for info in async_discovered_service_info(self.hass):
+            if info.address in configured:
                 continue
 
             try:
-                get_machine_type_from_service_data(dev.advertisement)
-                self._discovered_devices[dev.address] = dev
+                get_machine_type_from_service_data(info.advertisement)
+                self._discovered_devices[info.address] = info
 
             except NotFitnessMachineError:
                 pass
