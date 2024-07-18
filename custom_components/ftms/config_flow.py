@@ -181,14 +181,10 @@ class FTMSConfigFlow(ConfigFlow, domain=DOMAIN):
         placeholders = {"name": human_readable_name(None, info.name, info.address)}
 
         self.context["title_placeholders"] = placeholders
-        suggestion: Any = {"suggested_value": "auto"}
 
         schema = vol.Schema(
             {
-                vol.Required(
-                    CONF_DISCOVERY,
-                    description=suggestion,
-                ): selector(
+                vol.Required(CONF_DISCOVERY): selector(
                     {
                         "select": {
                             "options": ["auto", "manual"],
@@ -201,7 +197,9 @@ class FTMSConfigFlow(ConfigFlow, domain=DOMAIN):
 
         return self.async_show_form(
             step_id="confirm",
-            data_schema=schema,
+            data_schema=self.add_suggested_values_to_schema(
+                schema, {CONF_DISCOVERY: "auto"}
+            ),
             description_placeholders=placeholders,
         )
 
@@ -278,14 +276,9 @@ class FTMSConfigFlow(ConfigFlow, domain=DOMAIN):
                 options={CONF_SENSORS: user_input[CONF_SENSORS]},
             )
 
-        suggestion: Any = {"suggested_value": self._suggested_sensors}
-
         schema = vol.Schema(
             {
-                vol.Required(
-                    CONF_SENSORS,
-                    description=suggestion,
-                ): selector(
+                vol.Required(CONF_SENSORS): selector(
                     {
                         "select": {
                             "options": list(self._ftms.available_properties),
@@ -297,4 +290,9 @@ class FTMSConfigFlow(ConfigFlow, domain=DOMAIN):
             }
         )
 
-        return self.async_show_form(step_id="information", data_schema=schema)
+        return self.async_show_form(
+            step_id="information",
+            data_schema=self.add_suggested_values_to_schema(
+                schema, {CONF_SENSORS: self._suggested_sensors}
+            ),
+        )
