@@ -132,21 +132,14 @@ class FTMSConfigFlow(ConfigFlow, domain=DOMAIN):
         if not self._discovered_devices:
             return self.async_abort(reason="no_devices_found")
 
-        available_devices = {
-            address: human_readable_name(None, dev.name, address)
-            for address, dev in self._discovered_devices.items()
+        devices = {
+            mac: human_readable_name(None, dev.name, mac)
+            for mac, dev in self._discovered_devices.items()
         }
 
-        data_schema = vol.Schema(
-            {
-                vol.Required(CONF_ADDRESS): vol.In(available_devices),
-            }
-        )
+        schema = vol.Schema({vol.Required(CONF_ADDRESS): vol.In(devices)})
 
-        return self.async_show_form(
-            step_id="user",
-            data_schema=data_schema,
-        )
+        return self.async_show_form(step_id="user", data_schema=schema)
 
     async def async_step_bluetooth(
         self,
