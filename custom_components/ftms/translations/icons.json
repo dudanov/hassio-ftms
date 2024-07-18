@@ -2,9 +2,9 @@
   "entity": {
     "switch": {
       "connection": {
-        "default": "mdi:bluetooth",
+        "default": "mdi:bluetooth-off",
         "state": {
-          "off": "mdi:bluetooth-off"
+          "on": "mdi:bluetooth-transfer"
         }
       }
     }

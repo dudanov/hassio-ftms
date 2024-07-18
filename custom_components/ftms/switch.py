@@ -31,7 +31,6 @@ async def async_setup_entry(
         entry=entry,
         description=SwitchEntityDescription(
             key="connection",
-            icon="mdi:bluetooth",
             device_class=SwitchDeviceClass.SWITCH,
             entity_category=EntityCategory.CONFIG,
         ),
