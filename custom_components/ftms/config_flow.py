@@ -59,9 +59,9 @@ class OptionsFlowHandler(OptionsFlowWithConfigEntry):
                 vol.Required(CONF_SENSORS): selector(
                     {
                         "select": {
-                            "options": list(cli.available_properties),
                             "multiple": True,
-                            "translation_key": "sensors",
+                            "options": list(cli.available_properties),
+                            "translation_key": CONF_SENSORS,
                         }
                     }
                 )
@@ -281,9 +281,9 @@ class FTMSConfigFlow(ConfigFlow, domain=DOMAIN):
                 vol.Required(CONF_SENSORS): selector(
                     {
                         "select": {
-                            "options": list(self._ftms.available_properties),
                             "multiple": True,
-                            "translation_key": "sensors",
+                            "options": list(self._ftms.available_properties),
+                            "translation_key": CONF_SENSORS,
                         }
                     }
                 ),
