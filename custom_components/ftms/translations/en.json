@@ -243,9 +243,6 @@
     "device_not_found": {
       "message": "Bluetooth device {mac} not found."
     },
-    "device_disconnected": {
-      "message": "Unexpectedly lost the Bluetooth device {mac} connection."
-    },
     "connection_failed": {
       "message": "Failed connect to Bluetooth device {mac}."
     }

@@ -57,10 +57,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> bool
         """Disconnect handler. Reload entry on disconnect."""
 
         if ftms_.need_connect:
-            raise ConfigEntryNotReady(
-                translation_key="device_disconnected",
-                translation_placeholders={CONF_MAC: mac},
-            )
+            hass.config_entries.async_schedule_reload(entry.entry_id)
 
     ftms = pyftms.get_client(
         srv_info.device,
