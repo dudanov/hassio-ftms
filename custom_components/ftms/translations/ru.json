@@ -241,10 +241,10 @@
   },
   "exceptions": {
     "device_not_found": {
-      "message": "Bluetooth устройство {address} не найдено."
+      "message": "Bluetooth устройство {mac} не найдено."
     },
     "connection_failed": {
-      "message": "Ошибка соединения с Bluetooth устройством {address}."
+      "message": "Ошибка соединения с Bluetooth устройством {mac}."
     }
   }
 }

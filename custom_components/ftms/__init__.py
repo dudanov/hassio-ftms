@@ -7,7 +7,7 @@ from homeassistant.components import bluetooth
 from homeassistant.components.bluetooth.match import BluetoothCallbackMatcher
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
-    CONF_ADDRESS,
+    CONF_MAC,
     CONF_SENSORS,
     EVENT_HOMEASSISTANT_STOP,
     Platform,
@@ -45,12 +45,12 @@ async def async_unload_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> boo
 async def async_setup_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> bool:
     """Set up device from a config entry."""
 
-    address: str = entry.data[CONF_ADDRESS]
+    mac: str = entry.data[CONF_MAC]
 
-    if not (srv_info := bluetooth.async_last_service_info(hass, address)):
+    if not (srv_info := bluetooth.async_last_service_info(hass, mac)):
         raise ConfigEntryNotReady(
             translation_key="device_not_found",
-            translation_placeholders={"address": address},
+            translation_placeholders={"address": mac},
         )
 
     def _on_disconnect(ftms_: pyftms.FitnessMachine) -> None:
@@ -68,7 +68,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> bool
     assert ftms.machine_type.name
 
     unique_id = "".join(
-        x.lower() for x in ftms.device_info.get("serial_number", address) if x.isalnum()
+        x.lower() for x in ftms.device_info.get("serial_number", mac) if x.isalnum()
     )
 
     device_info = dr.DeviceInfo(
@@ -101,7 +101,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> bool
         bluetooth.async_register_callback(
             hass,
             _async_on_ble_event,
-            BluetoothCallbackMatcher(address=address),
+            BluetoothCallbackMatcher(address=mac),
             bluetooth.BluetoothScanningMode.ACTIVE,
         )
     )

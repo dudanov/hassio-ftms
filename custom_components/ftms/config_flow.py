@@ -20,7 +20,7 @@ from homeassistant.config_entries import (
     OptionsFlow,
     OptionsFlowWithConfigEntry,
 )
-from homeassistant.const import CONF_ADDRESS, CONF_DISCOVERY, CONF_SENSORS
+from homeassistant.const import CONF_DISCOVERY, CONF_MAC, CONF_SENSORS
 from homeassistant.core import callback
 from homeassistant.helpers.selector import selector
 from pyftms import (
@@ -47,7 +47,7 @@ class OptionsFlowHandler(OptionsFlowWithConfigEntry):
         if user_input is not None:
             return self.async_create_entry(title="", data=user_input)
 
-        address = self.config_entry.data[CONF_ADDRESS]
+        address = self.config_entry.data[CONF_MAC]
 
         if not (srv_info := async_last_service_info(self.hass, address)):
             return self.async_abort(reason="no_devices_found")
@@ -111,8 +111,8 @@ class FTMSConfigFlow(ConfigFlow, domain=DOMAIN):
         """Handle the user step to pick discovered device."""
 
         if user_input is not None:
-            address = user_input[CONF_ADDRESS]
-            self._ble_info = self._discovered_devices[address]
+            mac = user_input[CONF_MAC]
+            self._ble_info = self._discovered_devices[mac]
 
             return await self.async_step_confirm()
 
@@ -137,7 +137,7 @@ class FTMSConfigFlow(ConfigFlow, domain=DOMAIN):
             for mac, dev in self._discovered_devices.items()
         }
 
-        schema = vol.Schema({vol.Required(CONF_ADDRESS): vol.In(devices)})
+        schema = vol.Schema({vol.Required(CONF_MAC): vol.In(devices)})
 
         return self.async_show_form(step_id="user", data_schema=schema)
 
@@ -265,7 +265,7 @@ class FTMSConfigFlow(ConfigFlow, domain=DOMAIN):
 
             return self.async_create_entry(
                 title=" ".join((s1, s2, s3)),
-                data={CONF_ADDRESS: self._ftms.address},
+                data={CONF_MAC: self._ftms.address},
                 options={CONF_SENSORS: user_input[CONF_SENSORS]},
             )
 
