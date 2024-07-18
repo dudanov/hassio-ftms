@@ -164,6 +164,12 @@
       }
     },
     "number": {
+      "target_speed": {
+        "name": "Скорость"
+      },
+      "target_inclination": {
+        "name": "Наклон"
+      },
       "target_resistance": {
         "name": "Уровень нагрузки"
       },

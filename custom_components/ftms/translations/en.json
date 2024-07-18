@@ -164,11 +164,17 @@
       }
     },
     "number": {
+      "target_speed": {
+        "name": "Speed"
+      },
+      "target_inclination": {
+        "name": "Inclination"
+      },
       "target_resistance": {
-        "name": "Target resistance"
+        "name": "Resistance"
       },
       "target_power": {
-        "name": "Target power"
+        "name": "Power"
       }
     },
     "switch": {
