@@ -181,12 +181,13 @@ class FTMSConfigFlow(ConfigFlow, domain=DOMAIN):
         placeholders = {"name": human_readable_name(None, info.name, info.address)}
 
         self.context["title_placeholders"] = placeholders
+        suggestion: Any = {"suggested_value": "auto"}
 
         schema = vol.Schema(
             {
                 vol.Required(
                     CONF_DISCOVERY,
-                    description={"suggested_value": "auto"},
+                    description=suggestion,
                 ): selector(
                     {
                         "select": {
@@ -277,11 +278,13 @@ class FTMSConfigFlow(ConfigFlow, domain=DOMAIN):
                 options={CONF_SENSORS: user_input[CONF_SENSORS]},
             )
 
+        suggestion: Any = {"suggested_value": self._suggested_sensors}
+
         schema = vol.Schema(
             {
                 vol.Required(
                     CONF_SENSORS,
-                    description={"suggested_value": self._suggested_sensors},
+                    description=suggestion,
                 ): selector(
                     {
                         "select": {
