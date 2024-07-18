@@ -205,6 +205,8 @@
         "resistance_level": "Resistance level",
         "speed_average": "Speed average",
         "speed_instant": "Speed",
+        "split_time_average": "Split time average",
+        "split_time_instant": "Split time",
         "step_count": "Step count",
         "step_rate_average": "Step rate average",
         "step_rate_instant": "Step rate",

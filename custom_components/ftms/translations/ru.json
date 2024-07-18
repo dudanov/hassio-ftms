@@ -205,6 +205,8 @@
         "resistance_level": "Уровень нагрузки",
         "speed_average": "Средняя скорость",
         "speed_instant": "Скорость",
+        "split_time_average": "Средний темп гребли",
+        "split_time_instant": "Темп гребли",
         "step_count": "Шаги",
         "step_rate_average": "Средняя частота шага",
         "step_rate_instant": "Частота шага",
