@@ -3,6 +3,7 @@
 import logging
 
 import pyftms
+from bleak.exc import BleakError
 from homeassistant.components import bluetooth
 from homeassistant.components.bluetooth.match import BluetoothCallbackMatcher
 from homeassistant.config_entries import ConfigEntry
@@ -16,7 +17,6 @@ from homeassistant.core import Event, HomeAssistant, callback
 from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers import device_registry as dr
 
-from .connect import ftms_connect
 from .const import DOMAIN
 from .coordinator import DataCoordinator
 from .models import FtmsData
@@ -67,7 +67,14 @@ async def async_setup_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> bool
 
     coordinator = DataCoordinator(hass, ftms)
 
-    await ftms_connect(ftms)
+    try:
+        await ftms.connect()
+
+    except BleakError as exc:
+        raise ConfigEntryNotReady(
+            translation_key="connection_failed",
+            translation_placeholders={CONF_MAC: ftms.address},
+        ) from exc
 
     _LOGGER.debug(f"Device Information: {ftms.device_info}")
     _LOGGER.debug(f"Machine type: {ftms.machine_type!r}")
@@ -89,6 +96,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> bool
     )
 
     entry.runtime_data = FtmsData(
+        entry_id=entry.entry_id,
         unique_id=unique_id,
         device_info=device_info,
         ftms=ftms,

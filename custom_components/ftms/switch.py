@@ -3,6 +3,7 @@
 import logging
 from typing import Any, override
 
+from bleak.exc import BleakError
 from homeassistant.components.switch import (
     SwitchDeviceClass,
     SwitchEntity,
@@ -14,7 +15,6 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.restore_state import RestoreEntity
 
 from . import FtmsConfigEntry
-from .connect import ftms_connect
 from .entity import FtmsEntity
 
 _LOGGER = logging.getLogger(__name__)
@@ -58,9 +58,15 @@ class ConnectionSwitchEntity(FtmsEntity, SwitchEntity, RestoreEntity):
     async def async_turn_on(self, **kwargs: Any) -> None:
         """Turn the entity on."""
 
-        await ftms_connect(self.ftms)
-        self._attr_is_on = True
-        self.async_write_ha_state()
+        try:
+            await self.ftms.connect()
+
+        except BleakError:
+            self.hass.config_entries.async_schedule_reload(self._data.entry_id)
+
+        finally:
+            self._attr_is_on = True
+            self.async_write_ha_state()
 
     @override
     async def async_turn_off(self, **kwargs: Any) -> None:

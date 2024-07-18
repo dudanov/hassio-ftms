@@ -12,6 +12,7 @@ from .coordinator import DataCoordinator
 class FtmsData:
     """Data for the FTMS integration."""
 
+    entry_id: str
     unique_id: str
     device_info: DeviceInfo
     ftms: FitnessMachine
