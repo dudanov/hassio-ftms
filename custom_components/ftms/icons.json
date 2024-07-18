@@ -15,6 +15,9 @@
       }
     },
     "number": {
+      "target_inclination": {
+        "default": "mdi:angle-acute"
+      },
       "target_resistance": {
         "default": "mdi:chart-timeline-variant"
       },
