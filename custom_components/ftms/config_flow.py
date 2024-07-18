@@ -248,6 +248,7 @@ class FTMSConfigFlow(ConfigFlow, domain=DOMAIN):
         _LOGGER.debug(f"Machine type: {self._ftms.machine_type!r}")
         _LOGGER.debug(f"Available sensors: {self._ftms.available_properties}")
         _LOGGER.debug(f"Supported settings: {self._ftms.supported_settings}")
+        _LOGGER.debug(f"Supported ranges: {self._ftms.supported_ranges}")
         _LOGGER.debug(f"Suggested sensors: {self._suggested_sensors}")
 
         return self.async_show_progress_done(next_step_id="information")
