@@ -8,7 +8,7 @@ from homeassistant.components import bluetooth
 from homeassistant.components.bluetooth.match import BluetoothCallbackMatcher
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
-    CONF_MAC,
+    CONF_ADDRESS,
     CONF_SENSORS,
     EVENT_HOMEASSISTANT_STOP,
     Platform,
@@ -45,12 +45,12 @@ async def async_unload_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> boo
 async def async_setup_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> bool:
     """Set up device from a config entry."""
 
-    mac: str = entry.data[CONF_MAC]
+    address: str = entry.data[CONF_ADDRESS]
 
-    if not (srv_info := bluetooth.async_last_service_info(hass, mac)):
+    if not (srv_info := bluetooth.async_last_service_info(hass, address)):
         raise ConfigEntryNotReady(
             translation_key="device_not_found",
-            translation_placeholders={CONF_MAC: mac},
+            translation_placeholders={CONF_ADDRESS: address},
         )
 
     def _on_disconnect(ftms_: pyftms.FitnessMachine) -> None:
@@ -73,7 +73,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> bool
     except BleakError as exc:
         raise ConfigEntryNotReady(
             translation_key="connection_failed",
-            translation_placeholders={CONF_MAC: ftms.address},
+            translation_placeholders={CONF_ADDRESS: ftms.address},
         ) from exc
 
     _LOGGER.debug(f"Device Information: {ftms.device_info}")
@@ -85,7 +85,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> bool
     assert ftms.machine_type.name
 
     unique_id = "".join(
-        x.lower() for x in ftms.device_info.get("serial_number", mac) if x.isalnum()
+        x.lower() for x in ftms.device_info.get("serial_number", address) if x.isalnum()
     )
 
     device_info = dr.DeviceInfo(
@@ -119,7 +119,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> bool
         bluetooth.async_register_callback(
             hass,
             _async_on_ble_event,
-            BluetoothCallbackMatcher(address=mac),
+            BluetoothCallbackMatcher(address=address),
             bluetooth.BluetoothScanningMode.ACTIVE,
         )
     )

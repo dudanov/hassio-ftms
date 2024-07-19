@@ -5,7 +5,7 @@
         "title": "Select a fitness machine",
         "description": "Select a fitness machine to set up from the list below.",
         "data": {
-          "mac": "Discovered fitness machines:"
+          "address": "Discovered fitness machines:"
         }
       },
       "confirm": {
@@ -243,10 +243,10 @@
   },
   "exceptions": {
     "device_not_found": {
-      "message": "Bluetooth device {mac} not found."
+      "message": "Bluetooth device {address} not found."
     },
     "connection_failed": {
-      "message": "Failed connect to Bluetooth device {mac}."
+      "message": "Failed connect to Bluetooth device {address}."
     }
   }
 }

@@ -5,7 +5,7 @@
         "title": "Выбор тренажера",
         "description": "Выберите тренажер для настройки из списка ниже.",
         "data": {
-          "mac": "Обнаруженные тренажеры:"
+          "address": "Обнаруженные тренажеры:"
         }
       },
       "confirm": {
@@ -243,10 +243,10 @@
   },
   "exceptions": {
     "device_not_found": {
-      "message": "Bluetooth устройство {mac} не найдено."
+      "message": "Bluetooth устройство {address} не найдено."
     },
     "connection_failed": {
-      "message": "Ошибка соединения с Bluetooth устройством {mac}."
+      "message": "Ошибка соединения с Bluetooth устройством {address}."
     }
   }
 }
