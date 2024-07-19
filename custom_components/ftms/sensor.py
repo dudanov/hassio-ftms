@@ -138,6 +138,7 @@ _RAMP_ANGLE = SensorEntityDescription(
 
 _RESISTANCE_LEVEL = SensorEntityDescription(
     key=c.RESISTANCE_LEVEL,
+    state_class=SensorStateClass.MEASUREMENT,
 )
 
 _SPEED_AVERAGE = SensorEntityDescription(
@@ -184,16 +185,12 @@ _STEP_RATE_INSTANT = SensorEntityDescription(
 
 _STRIDE_COUNT = SensorEntityDescription(
     key=c.STRIDE_COUNT,
-    device_class=SensorDeviceClass.DURATION,
-    native_unit_of_measurement=UnitOfTime.SECONDS,
-    state_class=SensorStateClass.MEASUREMENT,
+    state_class=SensorStateClass.TOTAL,
 )
 
 _STROKE_COUNT = SensorEntityDescription(
     key=c.STROKE_COUNT,
-    device_class=SensorDeviceClass.DURATION,
-    native_unit_of_measurement=UnitOfTime.SECONDS,
-    state_class=SensorStateClass.MEASUREMENT,
+    state_class=SensorStateClass.TOTAL,
 )
 
 _STROKE_RATE_AVERAGE = SensorEntityDescription(
@@ -221,7 +218,7 @@ _TIME_REMAINING = SensorEntityDescription(
     key=c.TIME_REMAINING,
     device_class=SensorDeviceClass.DURATION,
     native_unit_of_measurement=UnitOfTime.SECONDS,
-    state_class=SensorStateClass.TOTAL,
+    state_class=SensorStateClass.MEASUREMENT,
 )
 
 _ENTITIES = {
