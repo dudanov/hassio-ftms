@@ -42,16 +42,16 @@
         "default": "mdi:stairs-up"
       },
       "energy_per_hour": {
-        "default": "mdi:food"
+        "default": "mdi:fire"
       },
       "energy_per_minute": {
-        "default": "mdi:food"
+        "default": "mdi:fire"
       },
       "energy_total": {
-        "default": "mdi:food"
+        "default": "mdi:fire"
       },
       "force_on_belt": {
-        "default": "mdi:food"
+        "default": "mdi:fire"
       },
       "heart_rate": {
         "default": "mdi:heart-pulse"

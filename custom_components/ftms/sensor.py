@@ -280,6 +280,8 @@ async def async_setup_entry(
 class FtmsSensorEntity(FtmsEntity, SensorEntity):
     """Representation of FTMS sensors."""
 
+    _attr_native_value = 0
+
     @callback
     def _handle_coordinator_update(self) -> None:
         """Handle updated data from the coordinator."""
