@@ -85,7 +85,7 @@ _INCLINATION = SensorEntityDescription(
 
 _METABOLIC_EQUIVALENT = SensorEntityDescription(
     key=c.METABOLIC_EQUIVALENT,
-    native_unit_of_measurement="meta",
+    native_unit_of_measurement="MET",
     state_class=SensorStateClass.MEASUREMENT,
 )
 
@@ -97,15 +97,13 @@ _MOVEMENT_DIRECTION = SensorEntityDescription(
 
 _PACE_AVERAGE = SensorEntityDescription(
     key=c.PACE_AVERAGE,
-    device_class=SensorDeviceClass.SPEED,
-    native_unit_of_measurement=UnitOfSpeed.KILOMETERS_PER_HOUR,
+    native_unit_of_measurement="km/min",
     state_class=SensorStateClass.MEASUREMENT,
 )
 
 _PACE_INSTANT = SensorEntityDescription(
     key=c.PACE_INSTANT,
-    device_class=SensorDeviceClass.SPEED,
-    native_unit_of_measurement=UnitOfSpeed.KILOMETERS_PER_HOUR,
+    native_unit_of_measurement="km/min",
     state_class=SensorStateClass.MEASUREMENT,
 )
 
@@ -132,7 +130,7 @@ _POWER_OUTPUT = SensorEntityDescription(
 
 _RAMP_ANGLE = SensorEntityDescription(
     key=c.RAMP_ANGLE,
-    native_unit_of_measurement="%",
+    native_unit_of_measurement="°",
     state_class=SensorStateClass.MEASUREMENT,
 )
 
@@ -157,29 +155,25 @@ _SPEED_INSTANT = SensorEntityDescription(
 
 _SPLIT_TIME_AVERAGE = SensorEntityDescription(
     key=c.SPLIT_TIME_AVERAGE,
-    device_class=SensorDeviceClass.DURATION,
-    native_unit_of_measurement=UnitOfTime.SECONDS,
+    native_unit_of_measurement="s/500m",
     state_class=SensorStateClass.MEASUREMENT,
 )
 
 _SPLIT_TIME_INSTANT = SensorEntityDescription(
     key=c.SPLIT_TIME_INSTANT,
-    device_class=SensorDeviceClass.DURATION,
-    native_unit_of_measurement=UnitOfTime.SECONDS,
+    native_unit_of_measurement="s/500m",
     state_class=SensorStateClass.MEASUREMENT,
 )
 
 _STEP_RATE_AVERAGE = SensorEntityDescription(
     key=c.STEP_RATE_AVERAGE,
-    device_class=SensorDeviceClass.DURATION,
-    native_unit_of_measurement=UnitOfTime.SECONDS,
+    native_unit_of_measurement="min⁻¹",
     state_class=SensorStateClass.MEASUREMENT,
 )
 
 _STEP_RATE_INSTANT = SensorEntityDescription(
     key=c.STEP_RATE_INSTANT,
-    device_class=SensorDeviceClass.DURATION,
-    native_unit_of_measurement=UnitOfTime.SECONDS,
+    native_unit_of_measurement="min⁻¹",
     state_class=SensorStateClass.MEASUREMENT,
 )
 
@@ -195,15 +189,13 @@ _STROKE_COUNT = SensorEntityDescription(
 
 _STROKE_RATE_AVERAGE = SensorEntityDescription(
     key=c.STROKE_RATE_AVERAGE,
-    device_class=SensorDeviceClass.DURATION,
-    native_unit_of_measurement=UnitOfTime.SECONDS,
+    native_unit_of_measurement="min⁻¹",
     state_class=SensorStateClass.MEASUREMENT,
 )
 
 _STROKE_RATE_INSTANT = SensorEntityDescription(
     key=c.STROKE_RATE_INSTANT,
-    device_class=SensorDeviceClass.DURATION,
-    native_unit_of_measurement=UnitOfTime.SECONDS,
+    native_unit_of_measurement="min⁻¹",
     state_class=SensorStateClass.MEASUREMENT,
 )
 
