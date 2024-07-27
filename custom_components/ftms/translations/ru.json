@@ -49,7 +49,7 @@
   "entity": {
     "sensor": {
       "cadence_average": {
-        "name": "Средний каденс"
+        "name": "Каденс средний"
       },
       "cadence_instant": {
         "name": "Каденс"
@@ -58,10 +58,10 @@
         "name": "Расстояние"
       },
       "elevation_gain_negative": {
-        "name": "Глубина спуска"
+        "name": "Спуск"
       },
       "elevation_gain_positive": {
-        "name": "Высота подъема"
+        "name": "Подъем"
       },
       "energy_per_hour": {
         "name": "Расход энергии за час"
@@ -70,7 +70,7 @@
         "name": "Расход энергии за минуту"
       },
       "energy_total": {
-        "name": "Затраты энергии"
+        "name": "Энергия"
       },
       "force_on_belt": {
         "name": "Натяжение полотна"
@@ -92,19 +92,19 @@
         }
       },
       "pace_average": {
-        "name": "Средний темп"
+        "name": "Темп средний"
       },
       "pace_instant": {
         "name": "Темп"
       },
       "power_average": {
-        "name": "Средняя мощность"
+        "name": "Мощность средняя"
       },
       "power_instant": {
         "name": "Мощность"
       },
       "power_output": {
-        "name": "Выходная мощность"
+        "name": "Мощность выходная"
       },
       "ramp_angle": {
         "name": "Наклон рампы"
@@ -113,31 +113,31 @@
         "name": "Уровень нагрузки"
       },
       "speed_average": {
-        "name": "Средняя скорость"
+        "name": "Скорость средняя"
       },
       "speed_instant": {
         "name": "Скорость"
       },
       "split_time_average": {
-        "name": "Средний темп гребли"
+        "name": "Темп гребли средний"
       },
       "split_time_instant": {
         "name": "Темп гребли"
       },
       "step_rate_average": {
-        "name": "Средняя частота шага"
+        "name": "Частота шага средняя"
       },
       "step_rate_instant": {
         "name": "Частота шага"
       },
       "stride_count": {
-        "name": "Полные шаги"
+        "name": "Полных шагов"
       },
       "stroke_count": {
-        "name": "Взмахи"
+        "name": "Взмахов"
       },
       "stroke_rate_average": {
-        "name": "Средняя частота взмахов"
+        "name": "Частота взмахов средняя"
       },
       "stroke_rate_instant": {
         "name": "Частота взмахов"
