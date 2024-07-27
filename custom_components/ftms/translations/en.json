@@ -243,10 +243,10 @@
   },
   "exceptions": {
     "device_not_found": {
-      "message": "Bluetooth device {address} not found."
+      "message": "Fitness machine not found. Make sure it is turned on and not in use by another application."
     },
     "connection_failed": {
-      "message": "Failed connect to Bluetooth device {address}."
+      "message": "Failed connect to Fitness machine. Make sure it is turned on and not in use by another application."
     }
   }
 }

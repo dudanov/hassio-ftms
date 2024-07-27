@@ -48,10 +48,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> bool
     address: str = entry.data[CONF_ADDRESS]
 
     if not (srv_info := bluetooth.async_last_service_info(hass, address)):
-        raise ConfigEntryNotReady(
-            translation_key="device_not_found",
-            translation_placeholders={CONF_ADDRESS: address},
-        )
+        raise ConfigEntryNotReady(translation_key="device_not_found")
 
     def _on_disconnect(ftms_: pyftms.FitnessMachine) -> None:
         """Disconnect handler. Reload entry on disconnect."""
@@ -71,10 +68,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> bool
         await ftms.connect()
 
     except BleakError as exc:
-        raise ConfigEntryNotReady(
-            translation_key="connection_failed",
-            translation_placeholders={CONF_ADDRESS: ftms.address},
-        ) from exc
+        raise ConfigEntryNotReady(translation_key="connection_failed") from exc
 
     _LOGGER.debug(f"Device Information: {ftms.device_info}")
     _LOGGER.debug(f"Machine type: {ftms.machine_type!r}")
@@ -85,8 +79,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> bool
     assert ftms.machine_type.name
 
     unique_id = "".join(
-        x.lower() for x in ftms.device_info.get("serial_number", address) if x.isalnum()
-    )
+        x for x in ftms.device_info.get("serial_number", address) if x.isalnum()
+    ).lower()
 
     device_info = dr.DeviceInfo(
         connections={(dr.CONNECTION_BLUETOOTH, ftms.address)},
