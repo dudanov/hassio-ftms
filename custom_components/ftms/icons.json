@@ -96,6 +96,9 @@
       "split_time_instant": {
         "default": "mdi:rowing"
       },
+      "step_count": {
+        "default": "mdi:run"
+      },
       "step_rate_average": {
         "default": "mdi:run"
       },
