@@ -124,6 +124,9 @@
       "split_time_instant": {
         "name": "Split time"
       },
+      "step_count": {
+        "name": "Step count"
+      },
       "step_rate_average": {
         "name": "Step rate average"
       },
@@ -210,6 +213,7 @@
         "speed_instant": "Speed",
         "split_time_average": "Split time average",
         "split_time_instant": "Split time",
+        "step_count": "Step count",
         "step_rate_average": "Step rate average",
         "step_rate_instant": "Step rate",
         "stride_count": "Stride count",

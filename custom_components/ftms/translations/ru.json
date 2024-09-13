@@ -124,6 +124,9 @@
       "split_time_instant": {
         "name": "Темп гребли"
       },
+      "step_count": {
+        "name": "Шагов"
+      },
       "step_rate_average": {
         "name": "Частота шага средняя"
       },
@@ -210,6 +213,7 @@
         "speed_instant": "Скорость",
         "split_time_average": "Темп гребли средний",
         "split_time_instant": "Темп гребли",
+        "step_count": "Шагов",
         "step_rate_average": "Частота шага средняя",
         "step_rate_instant": "Частота шага",
         "stride_count": "Полных шагов",

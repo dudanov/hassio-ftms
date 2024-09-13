@@ -165,6 +165,11 @@ _SPLIT_TIME_INSTANT = SensorEntityDescription(
     state_class=SensorStateClass.MEASUREMENT,
 )
 
+_STEP_COUNT = SensorEntityDescription(
+    key=c.STEP_COUNT,
+    state_class=SensorStateClass.TOTAL,
+)
+
 _STEP_RATE_AVERAGE = SensorEntityDescription(
     key=c.STEP_RATE_AVERAGE,
     native_unit_of_measurement="min⁻¹",
@@ -238,6 +243,7 @@ _ENTITIES = {
     c.SPEED_INSTANT: _SPEED_INSTANT,
     c.SPLIT_TIME_AVERAGE: _SPLIT_TIME_AVERAGE,
     c.SPLIT_TIME_INSTANT: _SPLIT_TIME_INSTANT,
+    c.STEP_COUNT: _STEP_COUNT,
     c.STEP_RATE_AVERAGE: _STEP_RATE_AVERAGE,
     c.STEP_RATE_INSTANT: _STEP_RATE_INSTANT,
     c.STRIDE_COUNT: _STRIDE_COUNT,
