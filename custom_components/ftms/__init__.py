@@ -72,7 +72,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> bool
         raise ConfigEntryNotReady(translation_key="connection_failed") from exc
 
     _LOGGER.debug(f"Device Information: {ftms.device_info}")
-    _LOGGER.debug(f"Machine type: {ftms.machine_type!r}")
+    _LOGGER.debug(f"Machine type: {ftms.machine_type.name}")
     _LOGGER.debug(f"Available sensors: {ftms.available_properties}")
     _LOGGER.debug(f"Supported settings: {ftms.supported_settings}")
     _LOGGER.debug(f"Supported ranges: {ftms.supported_ranges}")
