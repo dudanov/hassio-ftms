@@ -71,13 +71,13 @@ async def async_setup_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> bool
     except BleakError as exc:
         raise ConfigEntryNotReady(translation_key="connection_failed") from exc
 
+    assert ftms.machine_type.name
+
     _LOGGER.debug(f"Device Information: {ftms.device_info}")
     _LOGGER.debug(f"Machine type: {ftms.machine_type.name}")
     _LOGGER.debug(f"Available sensors: {ftms.available_properties}")
     _LOGGER.debug(f"Supported settings: {ftms.supported_settings}")
     _LOGGER.debug(f"Supported ranges: {ftms.supported_ranges}")
-
-    assert ftms.machine_type.name
 
     unique_id = "".join(
         x for x in ftms.device_info.get("serial_number", address) if x.isalnum()
