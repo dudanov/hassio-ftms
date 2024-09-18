@@ -95,7 +95,7 @@ class FtmsNumberEntity(FtmsEntity, NumberEntity):
         e, key = self.coordinator.data, self.key
 
         if e.event_id == "update":
-            if not (key := _NUMBERS_SENSORS_MAP.get(key)):
+            if (key := _NUMBERS_SENSORS_MAP.get(key)) is None:
                 return
 
         elif e.event_id != "setup":

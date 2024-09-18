@@ -30,21 +30,21 @@ _DISTANCE_TOTAL = SensorEntityDescription(
     key=c.DISTANCE_TOTAL,
     device_class=SensorDeviceClass.DISTANCE,
     native_unit_of_measurement=UnitOfLength.METERS,
-    state_class=SensorStateClass.TOTAL,
+    state_class=SensorStateClass.TOTAL_INCREASING,
 )
 
 _ELEVATION_GAIN_NEGATIVE = SensorEntityDescription(
     key=c.ELEVATION_GAIN_NEGATIVE,
     device_class=SensorDeviceClass.DISTANCE,
     native_unit_of_measurement=UnitOfLength.METERS,
-    state_class=SensorStateClass.TOTAL,
+    state_class=SensorStateClass.TOTAL_INCREASING,
 )
 
 _ELEVATION_GAIN_POSITIVE = SensorEntityDescription(
     key=c.ELEVATION_GAIN_POSITIVE,
     device_class=SensorDeviceClass.DISTANCE,
     native_unit_of_measurement=UnitOfLength.METERS,
-    state_class=SensorStateClass.TOTAL,
+    state_class=SensorStateClass.TOTAL_INCREASING,
 )
 
 _ENERGY_PER_HOUR = SensorEntityDescription(
@@ -62,7 +62,7 @@ _ENERGY_PER_MINUTE = SensorEntityDescription(
 _ENERGY_TOTAL = SensorEntityDescription(
     key=c.ENERGY_TOTAL,
     native_unit_of_measurement="kcal",
-    state_class=SensorStateClass.TOTAL,
+    state_class=SensorStateClass.TOTAL_INCREASING,
 )
 
 _FORCE_ON_BELT = SensorEntityDescription(
@@ -167,7 +167,7 @@ _SPLIT_TIME_INSTANT = SensorEntityDescription(
 
 _STEP_COUNT = SensorEntityDescription(
     key=c.STEP_COUNT,
-    state_class=SensorStateClass.TOTAL,
+    state_class=SensorStateClass.TOTAL_INCREASING,
 )
 
 _STEP_RATE_AVERAGE = SensorEntityDescription(
@@ -184,12 +184,12 @@ _STEP_RATE_INSTANT = SensorEntityDescription(
 
 _STRIDE_COUNT = SensorEntityDescription(
     key=c.STRIDE_COUNT,
-    state_class=SensorStateClass.TOTAL,
+    state_class=SensorStateClass.TOTAL_INCREASING,
 )
 
 _STROKE_COUNT = SensorEntityDescription(
     key=c.STROKE_COUNT,
-    state_class=SensorStateClass.TOTAL,
+    state_class=SensorStateClass.TOTAL_INCREASING,
 )
 
 _STROKE_RATE_AVERAGE = SensorEntityDescription(
@@ -208,7 +208,7 @@ _TIME_ELAPSED = SensorEntityDescription(
     key=c.TIME_ELAPSED,
     device_class=SensorDeviceClass.DURATION,
     native_unit_of_measurement=UnitOfTime.SECONDS,
-    state_class=SensorStateClass.TOTAL,
+    state_class=SensorStateClass.TOTAL_INCREASING,
 )
 
 _TIME_REMAINING = SensorEntityDescription(
