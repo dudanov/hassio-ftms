@@ -18,6 +18,13 @@ from .entity import FtmsEntity
 
 _LOGGER = logging.getLogger(__name__)
 
+_NUMBERS_SENSORS_MAP = {
+    c.TARGET_SPEED: c.SPEED_INSTANT,
+    c.TARGET_INCLINATION: c.INCLINATION,
+    c.TARGET_RESISTANCE: c.RESISTANCE_LEVEL,
+    c.TARGET_POWER: c.POWER_INSTANT,
+}
+
 _SPEED = NumberEntityDescription(
     key=c.TARGET_SPEED,
     device_class=NumberDeviceClass.SPEED,
@@ -29,7 +36,6 @@ _INCLINATION = NumberEntityDescription(
     native_unit_of_measurement="%",
 )
 
-
 _RESISTANCE_LEVEL = NumberEntityDescription(
     key=c.TARGET_RESISTANCE,
 )
@@ -39,7 +45,6 @@ _POWER = NumberEntityDescription(
     device_class=NumberDeviceClass.POWER,
     native_unit_of_measurement=UnitOfPower.WATT,
 )
-
 
 _ENTITIES = (
     _RESISTANCE_LEVEL,
@@ -87,9 +92,15 @@ class FtmsNumberEntity(FtmsEntity, NumberEntity):
     def _handle_coordinator_update(self) -> None:
         """Handle updated data from the coordinator."""
 
-        e = self.coordinator.data
+        e, key = self.coordinator.data, self.key
 
-        if e.event_id == "setup":
-            if (value := e.event_data.get(self.key)) is not None:
-                self._attr_native_value = value
-                self.async_write_ha_state()
+        if e.event_id == "update":
+            if not (key := _NUMBERS_SENSORS_MAP.get(key)):
+                return
+
+        elif e.event_id != "setup":
+            return
+
+        if (value := e.event_data.get(key)) is not None:
+            self._attr_native_value = value
+            self.async_write_ha_state()
