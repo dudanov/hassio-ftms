@@ -88,6 +88,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> bool
         x for x in ftms.device_info.get("serial_number", address) if x.isalnum()
     ).lower()
 
+    _LOGGER.debug(f"Registered new FTMS device. UniqueID is '{unique_id}'.")
+
     device_info = dr.DeviceInfo(
         connections={(dr.CONNECTION_BLUETOOTH, ftms.address)},
         identifiers={(DOMAIN, unique_id)},
