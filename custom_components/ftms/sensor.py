@@ -4,7 +4,13 @@ import logging
 
 from homeassistant.components.sensor import SensorEntity, SensorEntityDescription
 from homeassistant.components.sensor.const import SensorDeviceClass, SensorStateClass
-from homeassistant.const import UnitOfLength, UnitOfPower, UnitOfSpeed, UnitOfTime
+from homeassistant.const import (
+    UnitOfEnergy,
+    UnitOfLength,
+    UnitOfPower,
+    UnitOfSpeed,
+    UnitOfTime,
+)
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from pyftms.client import const as c
@@ -49,19 +55,22 @@ _ELEVATION_GAIN_POSITIVE = SensorEntityDescription(
 
 _ENERGY_PER_HOUR = SensorEntityDescription(
     key=c.ENERGY_PER_HOUR,
-    native_unit_of_measurement="kcal",
+    device_class=SensorDeviceClass.ENERGY,
+    native_unit_of_measurement=UnitOfEnergy.KILO_CALORIE,
     state_class=SensorStateClass.MEASUREMENT,
 )
 
 _ENERGY_PER_MINUTE = SensorEntityDescription(
     key=c.ENERGY_PER_MINUTE,
-    native_unit_of_measurement="kcal",
+    device_class=SensorDeviceClass.ENERGY,
+    native_unit_of_measurement=UnitOfEnergy.KILO_CALORIE,
     state_class=SensorStateClass.MEASUREMENT,
 )
 
 _ENERGY_TOTAL = SensorEntityDescription(
     key=c.ENERGY_TOTAL,
-    native_unit_of_measurement="kcal",
+    device_class=SensorDeviceClass.ENERGY,
+    native_unit_of_measurement=UnitOfEnergy.KILO_CALORIE,
     state_class=SensorStateClass.TOTAL_INCREASING,
 )
 
