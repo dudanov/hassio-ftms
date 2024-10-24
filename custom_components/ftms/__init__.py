@@ -39,6 +39,7 @@ async def async_unload_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> boo
 
     if unload_ok := await hass.config_entries.async_unload_platforms(entry, PLATFORMS):
         await entry.runtime_data.ftms.disconnect()
+        bluetooth.async_rediscover_address(hass, entry.runtime_data.ftms.address)
 
     return unload_ok
 
