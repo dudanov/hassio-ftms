@@ -58,11 +58,15 @@ async def async_setup_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> bool
         if ftms_.need_connect:
             hass.config_entries.async_schedule_reload(entry.entry_id)
 
-    ftms = pyftms.get_client(
-        srv_info.device,
-        srv_info.advertisement,
-        on_disconnect=_on_disconnect,
-    )
+    try:
+        ftms = pyftms.get_client(
+            srv_info.device,
+            srv_info.advertisement,
+            on_disconnect=_on_disconnect,
+        )
+
+    except pyftms.NotFitnessMachineError:
+        raise ConfigEntryNotReady(translation_key="ftms_error")
 
     coordinator = DataCoordinator(hass, ftms)
 

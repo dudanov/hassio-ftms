@@ -251,6 +251,9 @@
     },
     "connection_failed": {
       "message": "Failed connect to Fitness machine. Make sure it is turned on and not in use by another application."
+    },
+    "ftms_error": {
+      "message": "Fitness device probably switched to another protocol, such as FitShow. Try reboot your device."
     }
   }
 }
