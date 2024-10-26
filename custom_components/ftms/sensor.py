@@ -312,7 +312,7 @@ class FtmsSensorEntity(FtmsEntity, SensorEntity):
     """Representation of FTMS sensors."""
 
     def __init__(self, entry, description) -> None:
-        self._attr_native_value = _DEFAULT_VALUES.get(self.key, 0)
+        self._attr_native_value = _DEFAULT_VALUES.get(description.key, 0)
         super().__init__(entry, description)
 
     @callback
