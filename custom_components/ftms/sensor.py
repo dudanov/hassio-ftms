@@ -315,7 +315,7 @@ class FtmsSensorEntity(FtmsEntity, SensorEntity):
         e = self.coordinator.data
 
         if e.event_id == TRAINING_STATUS and self.key == TRAINING_STATUS:
-            self._attr_native_value = e.event_data["code"]
+            self._attr_native_value = e.event_data["code"].name.lower()
             self.async_write_ha_state()
             return
 
