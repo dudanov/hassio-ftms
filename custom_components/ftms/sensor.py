@@ -309,6 +309,10 @@ class FtmsSensorEntity(FtmsEntity, SensorEntity):
     def __init__(self, entry, description) -> None:
         if description.device_class != SensorDeviceClass.ENUM:
             self._attr_native_value = 0
+        elif description.key == TRAINING_STATUS:
+            self._attr_native_value = (
+                entry.runtime_data.ftms.training_status.name.lower()
+            )
 
         super().__init__(entry, description)
 
