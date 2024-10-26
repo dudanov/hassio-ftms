@@ -275,11 +275,6 @@ _ENTITIES = {
     c.TIME_REMAINING: _TIME_REMAINING,
 }
 
-_DEFAULT_VALUES = {
-    c.MOVEMENT_DIRECTION: "forward",
-    TRAINING_STATUS: "idle",
-}
-
 
 async def async_setup_entry(
     hass: HomeAssistant,
@@ -312,7 +307,9 @@ class FtmsSensorEntity(FtmsEntity, SensorEntity):
     """Representation of FTMS sensors."""
 
     def __init__(self, entry, description) -> None:
-        self._attr_native_value = _DEFAULT_VALUES.get(description.key, 0)
+        if description.device_class != SensorDeviceClass.ENUM:
+            self._attr_native_value = 0
+
         super().__init__(entry, description)
 
     @callback
