@@ -150,6 +150,27 @@
       },
       "time_remaining": {
         "name": "Время до окончания тренировки"
+      },
+      "training_status": {
+        "name": "Статус",
+        "state": {
+          "other": "Прочее",
+          "idle": "Остановлен",
+          "warming_up": "Разогрев",
+          "low_intensity_interval": "Малая интенсивность",
+          "high_intensity_interval": "Высокая интенсивность",
+          "recovery_interval": "Восстановление",
+          "isometric": "Изометрия",
+          "heart_rate_control": "Контроль пульса",
+          "fitness_test": "Тестирование",
+          "speed_too_low": "Низкая скорость",
+          "speed_too_high": "Высокая скорость",
+          "cool_down": "Остывание",
+          "watt_control": "Контроль мощности",
+          "manual_mode": "Ручной режим",
+          "pre_workout": "Подготовка",
+          "post_workout": "Остановка"
+        }
       }
     },
     "button": {

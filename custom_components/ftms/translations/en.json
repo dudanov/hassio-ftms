@@ -150,6 +150,27 @@
       },
       "time_remaining": {
         "name": "Time remaining"
+      },
+      "training_status": {
+        "name": "Status",
+        "state": {
+          "other": "Other",
+          "idle": "Idle",
+          "warming_up": "Warming Up",
+          "low_intensity_interval": "Low Intensity Interval",
+          "high_intensity_interval": "High Intensity Interval",
+          "recovery_interval": "Recovery Interval",
+          "isometric": "Isometric",
+          "heart_rate_control": "Heart Rate Control",
+          "fitness_test": "Fitness Test",
+          "speed_too_low": "Speed Too Low",
+          "speed_too_high": "Speed Too High",
+          "cool_down": "Cool Down",
+          "watt_control": "Watt Control",
+          "manual_mode": "Manual Mode",
+          "pre_workout": "Pre-Workout",
+          "post_workout": "Post-Workout"
+        }
       }
     },
     "button": {

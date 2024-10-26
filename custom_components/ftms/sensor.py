@@ -13,9 +13,11 @@ from homeassistant.const import (
 )
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from pyftms import TrainingStatusCode
 from pyftms.client import const as c
 
 from . import FtmsConfigEntry
+from .const import TRAINING_STATUS
 from .entity import FtmsEntity
 
 _LOGGER = logging.getLogger(__name__)
@@ -231,6 +233,12 @@ _TIME_REMAINING = SensorEntityDescription(
     state_class=SensorStateClass.MEASUREMENT,
 )
 
+_TRAINING_STATUS = SensorEntityDescription(
+    key=TRAINING_STATUS,
+    device_class=SensorDeviceClass.ENUM,
+    options=[x.name.lower() for x in TrainingStatusCode],
+)
+
 _ENTITIES = {
     c.CADENCE_AVERAGE: _CADENCE_AVERAGE,
     c.CADENCE_INSTANT: _CADENCE_INSTANT,
@@ -285,6 +293,13 @@ async def async_setup_entry(
         for key in data.sensors
     ]
 
+    entities.append(
+        FtmsSensorEntity(
+            entry=entry,
+            description=_TRAINING_STATUS,
+        )
+    )
+
     async_add_entities(entities)
 
 
@@ -298,6 +313,11 @@ class FtmsSensorEntity(FtmsEntity, SensorEntity):
         """Handle updated data from the coordinator."""
 
         e = self.coordinator.data
+
+        if e.event_id == TRAINING_STATUS and self.key == TRAINING_STATUS:
+            self._attr_native_value = e.event_data["code"]
+            self.async_write_ha_state()
+            return
 
         if e.event_id == "update" and (value := e.event_data.get(self.key)) is not None:
             self._attr_native_value = value
