@@ -36,21 +36,21 @@ _DISTANCE_TOTAL = SensorEntityDescription(
     key=c.DISTANCE_TOTAL,
     device_class=SensorDeviceClass.DISTANCE,
     native_unit_of_measurement=UnitOfLength.METERS,
-    state_class=SensorStateClass.TOTAL_INCREASING,
+    state_class=SensorStateClass.TOTAL,
 )
 
 _ELEVATION_GAIN_NEGATIVE = SensorEntityDescription(
     key=c.ELEVATION_GAIN_NEGATIVE,
     device_class=SensorDeviceClass.DISTANCE,
     native_unit_of_measurement=UnitOfLength.METERS,
-    state_class=SensorStateClass.TOTAL_INCREASING,
+    state_class=SensorStateClass.TOTAL,
 )
 
 _ELEVATION_GAIN_POSITIVE = SensorEntityDescription(
     key=c.ELEVATION_GAIN_POSITIVE,
     device_class=SensorDeviceClass.DISTANCE,
     native_unit_of_measurement=UnitOfLength.METERS,
-    state_class=SensorStateClass.TOTAL_INCREASING,
+    state_class=SensorStateClass.TOTAL,
 )
 
 _ENERGY_PER_HOUR = SensorEntityDescription(
@@ -71,7 +71,7 @@ _ENERGY_TOTAL = SensorEntityDescription(
     key=c.ENERGY_TOTAL,
     device_class=SensorDeviceClass.ENERGY,
     native_unit_of_measurement=UnitOfEnergy.KILO_CALORIE,
-    state_class=SensorStateClass.TOTAL_INCREASING,
+    state_class=SensorStateClass.TOTAL,
 )
 
 _FORCE_ON_BELT = SensorEntityDescription(
@@ -106,13 +106,15 @@ _MOVEMENT_DIRECTION = SensorEntityDescription(
 
 _PACE_AVERAGE = SensorEntityDescription(
     key=c.PACE_AVERAGE,
-    native_unit_of_measurement="km/min",
+    device_class=SensorDeviceClass.DURATION,
+    native_unit_of_measurement=UnitOfTime.MINUTES,
     state_class=SensorStateClass.MEASUREMENT,
 )
 
 _PACE_INSTANT = SensorEntityDescription(
     key=c.PACE_INSTANT,
-    native_unit_of_measurement="km/min",
+    device_class=SensorDeviceClass.DURATION,
+    native_unit_of_measurement=UnitOfTime.MINUTES,
     state_class=SensorStateClass.MEASUREMENT,
 )
 
@@ -164,19 +166,21 @@ _SPEED_INSTANT = SensorEntityDescription(
 
 _SPLIT_TIME_AVERAGE = SensorEntityDescription(
     key=c.SPLIT_TIME_AVERAGE,
-    native_unit_of_measurement="s/500m",
+    device_class=SensorDeviceClass.DURATION,
+    native_unit_of_measurement=UnitOfTime.SECONDS,
     state_class=SensorStateClass.MEASUREMENT,
 )
 
 _SPLIT_TIME_INSTANT = SensorEntityDescription(
     key=c.SPLIT_TIME_INSTANT,
-    native_unit_of_measurement="s/500m",
+    device_class=SensorDeviceClass.DURATION,
+    native_unit_of_measurement=UnitOfTime.SECONDS,
     state_class=SensorStateClass.MEASUREMENT,
 )
 
 _STEP_COUNT = SensorEntityDescription(
     key=c.STEP_COUNT,
-    state_class=SensorStateClass.TOTAL_INCREASING,
+    state_class=SensorStateClass.TOTAL,
 )
 
 _STEP_RATE_AVERAGE = SensorEntityDescription(
@@ -193,12 +197,12 @@ _STEP_RATE_INSTANT = SensorEntityDescription(
 
 _STRIDE_COUNT = SensorEntityDescription(
     key=c.STRIDE_COUNT,
-    state_class=SensorStateClass.TOTAL_INCREASING,
+    state_class=SensorStateClass.TOTAL,
 )
 
 _STROKE_COUNT = SensorEntityDescription(
     key=c.STROKE_COUNT,
-    state_class=SensorStateClass.TOTAL_INCREASING,
+    state_class=SensorStateClass.TOTAL,
 )
 
 _STROKE_RATE_AVERAGE = SensorEntityDescription(
@@ -217,7 +221,7 @@ _TIME_ELAPSED = SensorEntityDescription(
     key=c.TIME_ELAPSED,
     device_class=SensorDeviceClass.DURATION,
     native_unit_of_measurement=UnitOfTime.SECONDS,
-    state_class=SensorStateClass.TOTAL_INCREASING,
+    state_class=SensorStateClass.TOTAL,
 )
 
 _TIME_REMAINING = SensorEntityDescription(
