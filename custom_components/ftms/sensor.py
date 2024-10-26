@@ -1,6 +1,7 @@
 """FTMS integration sensor platform."""
 
 import logging
+from enum import Enum
 
 from homeassistant.components.sensor import SensorEntity, SensorEntityDescription
 from homeassistant.components.sensor.const import SensorDeviceClass, SensorStateClass
@@ -17,7 +18,6 @@ from pyftms import MovementDirection, TrainingStatusCode
 from pyftms.client import const as c
 
 from . import FtmsConfigEntry
-from .const import TRAINING_STATUS
 from .entity import FtmsEntity
 
 _LOGGER = logging.getLogger(__name__)
@@ -234,7 +234,7 @@ _TIME_REMAINING = SensorEntityDescription(
 )
 
 _TRAINING_STATUS = SensorEntityDescription(
-    key=TRAINING_STATUS,
+    key=c.TRAINING_STATUS,
     device_class=SensorDeviceClass.ENUM,
     options=[x.name.lower() for x in TrainingStatusCode],
 )
@@ -273,6 +273,7 @@ _ENTITIES = {
     c.STROKE_RATE_INSTANT: _STROKE_RATE_INSTANT,
     c.TIME_ELAPSED: _TIME_ELAPSED,
     c.TIME_REMAINING: _TIME_REMAINING,
+    c.TRAINING_STATUS: _TRAINING_STATUS,
 }
 
 
@@ -293,13 +294,6 @@ async def async_setup_entry(
         for key in data.sensors
     ]
 
-    entities.append(
-        FtmsSensorEntity(
-            entry=entry,
-            description=_TRAINING_STATUS,
-        )
-    )
-
     async_add_entities(entities)
 
 
@@ -307,14 +301,15 @@ class FtmsSensorEntity(FtmsEntity, SensorEntity):
     """Representation of FTMS sensors."""
 
     def __init__(self, entry, description) -> None:
-        if description.device_class != SensorDeviceClass.ENUM:
-            self._attr_native_value = 0
-        elif description.key == TRAINING_STATUS:
-            self._attr_native_value = (
-                entry.runtime_data.ftms.training_status.name.lower()
-            )
-
         super().__init__(entry, description)
+
+        if (x := self.ftms.get_property(self.key)) is None:
+            x = 0
+
+        elif isinstance(x, Enum):
+            x = x.name.lower()
+
+        self._attr_native_value = x
 
     @callback
     def _handle_coordinator_update(self) -> None:
@@ -322,11 +317,9 @@ class FtmsSensorEntity(FtmsEntity, SensorEntity):
 
         e = self.coordinator.data
 
-        if e.event_id == TRAINING_STATUS and self.key == TRAINING_STATUS:
-            self._attr_native_value = e.event_data["code"].name.lower()
-            self.async_write_ha_state()
-            return
-
         if e.event_id == "update" and (value := e.event_data.get(self.key)) is not None:
+            if isinstance(value, Enum):
+                value = value.name.lower()
+
             self._attr_native_value = value
             self.async_write_ha_state()

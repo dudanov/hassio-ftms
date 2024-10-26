@@ -242,7 +242,8 @@
         "stroke_rate_average": "Stroke rate average",
         "stroke_rate_instant": "Stroke rate",
         "time_elapsed": "Time elapsed",
-        "time_remaining": "Time remaining"
+        "time_remaining": "Time remaining",
+        "training_status": "Training status"
       }
     },
     "discovery": {

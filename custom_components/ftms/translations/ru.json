@@ -242,7 +242,8 @@
         "stroke_rate_average": "Частота взмахов средняя",
         "stroke_rate_instant": "Частота взмахов",
         "time_elapsed": "Время тренировки",
-        "time_remaining": "Время до окончания тренировки"
+        "time_remaining": "Время до окончания тренировки",
+        "training_status": "Статус"
       }
     },
     "discovery": {
