@@ -13,7 +13,7 @@ from homeassistant.const import (
 )
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from pyftms import TrainingStatusCode
+from pyftms import MovementDirection, TrainingStatusCode
 from pyftms.client import const as c
 
 from . import FtmsConfigEntry
@@ -103,7 +103,7 @@ _METABOLIC_EQUIVALENT = SensorEntityDescription(
 _MOVEMENT_DIRECTION = SensorEntityDescription(
     key=c.MOVEMENT_DIRECTION,
     device_class=SensorDeviceClass.ENUM,
-    options=["forward", "backward"],
+    options=[x.name.lower() for x in MovementDirection],
 )
 
 _PACE_AVERAGE = SensorEntityDescription(
@@ -275,6 +275,11 @@ _ENTITIES = {
     c.TIME_REMAINING: _TIME_REMAINING,
 }
 
+_DEFAULT_VALUES = {
+    c.MOVEMENT_DIRECTION: "forward",
+    TRAINING_STATUS: "idle",
+}
+
 
 async def async_setup_entry(
     hass: HomeAssistant,
@@ -306,7 +311,9 @@ async def async_setup_entry(
 class FtmsSensorEntity(FtmsEntity, SensorEntity):
     """Representation of FTMS sensors."""
 
-    _attr_native_value = 0
+    def __init__(self, entry, description) -> None:
+        self._attr_native_value = _DEFAULT_VALUES.get(self.key, 0)
+        super().__init__(entry, description)
 
     @callback
     def _handle_coordinator_update(self) -> None:

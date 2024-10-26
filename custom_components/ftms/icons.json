@@ -122,6 +122,9 @@
       },
       "time_remaining": {
         "default": "mdi:timer-stop"
+      },
+      "training_status": {
+        "default": "mdi:checkbox-marked-outline"
       }
     },
     "switch": {
