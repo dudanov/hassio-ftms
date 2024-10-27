@@ -13,6 +13,6 @@
   "integration_type": "device",
   "iot_class": "local_push",
   "issue_tracker": "https://github.com/dudanov/hassio-ftms/issues",
-  "requirements": ["pyftms==0.4.0"],
-  "version": "0.23"
+  "requirements": ["pyftms==0.4.1"],
+  "version": "0.24"
 }
