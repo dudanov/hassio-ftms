@@ -29,7 +29,6 @@ PLATFORMS: list[Platform] = [
 ]
 
 _LOGGER = logging.getLogger(__name__)
-logging.getLogger("pyftms").setLevel(_LOGGER.level)
 
 type FtmsConfigEntry = ConfigEntry[FtmsData]
 
