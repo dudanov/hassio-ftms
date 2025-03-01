@@ -79,29 +79,23 @@ class FTMSConfigFlow(ConfigFlow, domain=DOMAIN):
 
     VERSION = 1
 
-    _ble_info: BluetoothServiceInfoBleak | None
+    _ble_info: BluetoothServiceInfoBleak
     _discovered_devices: dict[str, BluetoothServiceInfoBleak]
-    _ftms: FitnessMachine | None = None
-
-    _connect_task: asyncio.Task | None = None
-    _discovery_task: asyncio.Task | None = None
-    _close_task: asyncio.Task | None = None
-
     _discovery_time: float
     _suggested_sensors: list[str]
 
-    def __init__(self) -> None:
-        """Initialize the config flow."""
-
-        self._ble_info = None
-        self._discovered_devices = {}
+    _ftms: FitnessMachine | None = None
+    _task1: asyncio.Task[None] | None = None
+    _task2: asyncio.Task[None] | None = None
+    _task3: asyncio.Task[None] | None = None
 
     @staticmethod
     @callback
     def async_get_options_flow(
         config_entry: ConfigEntry,
     ) -> OptionsFlow:
-        """Create the options flow."""
+        """Create the options flow"""
+
         return OptionsFlowHandler(config_entry)
 
     async def async_step_user(
@@ -112,22 +106,24 @@ class FTMSConfigFlow(ConfigFlow, domain=DOMAIN):
 
         if user_input is not None:
             addr = user_input[CONF_ADDRESS]
-            self._ble_info = self._discovered_devices[addr]
 
+            self._ble_info = self._discovered_devices[addr]
             return await self.async_step_confirm()
 
-        configured = self._async_current_ids()
+        already_configured = self._async_current_ids()
+        self._discovered_devices = {}
 
         for info in async_discovered_service_info(self.hass):
-            if info.address in configured:
+            if info.address in already_configured:
                 continue
 
             try:
                 get_machine_type_from_service_data(info.advertisement)
-                self._discovered_devices[info.address] = info
 
             except NotFitnessMachineError:
-                pass
+                continue
+
+            self._discovered_devices[info.address] = info
 
         if not self._discovered_devices:
             return self.async_abort(reason="no_devices_found")
@@ -157,22 +153,21 @@ class FTMSConfigFlow(ConfigFlow, domain=DOMAIN):
         self._abort_if_unique_id_configured()
 
         self._ble_info = info
-
         return await self.async_step_confirm()
 
     async def async_step_confirm(
         self,
         user_input: dict[str, Any] | None = None,
     ) -> ConfigFlowResult:
+        """Choosing properties discovering method"""
+
         if user_input is not None:
             self._discovery_time = 30 if user_input[CONF_DISCOVERY] == "auto" else 0
             return await self.async_step_ble_request()
 
         # here we know device
-        assert (info := self._ble_info)
-
+        info = self._ble_info
         placeholders = {"name": human_readable_name(None, info.name, info.address)}
-
         self.context["title_placeholders"] = placeholders
 
         schema = vol.Schema(
@@ -200,36 +195,38 @@ class FTMSConfigFlow(ConfigFlow, domain=DOMAIN):
         self,
         user_input: dict[str, Any] | None = None,
     ) -> ConfigFlowResult:
-        """BLE connection step."""
+        """Connection and data collection step"""
 
         if self._ftms is None:
-            assert (info := self._ble_info)
+            info = self._ble_info
             self._ftms = get_client(info.device, info.advertisement)
 
         uncompleted_task: asyncio.Task[None] | None = None
+        ftms = self._ftms
 
         if not uncompleted_task:
-            if not self._connect_task:
-                self._connect_task = self.hass.async_create_task(self._ftms.connect())
+            if not self._task1:
+                coro = ftms.connect()
+                self._task1 = self.hass.async_create_task(coro)
 
-            if not self._connect_task.done():
-                uncompleted_task, action = self._connect_task, "connecting"
+            if not self._task1.done():
+                uncompleted_task, action = self._task1, "connecting"
+
+        if not uncompleted_task and self._discovery_time:
+            if not self._task2:
+                coro = asyncio.sleep(self._discovery_time)
+                self._task2 = self.hass.async_create_task(coro)
+
+            if not self._task2.done():
+                uncompleted_task, action = self._task2, "discovering"
 
         if not uncompleted_task:
-            if self._discovery_time:
-                if not self._discovery_task:
-                    coro = asyncio.sleep(self._discovery_time)
-                    self._discovery_task = self.hass.async_create_task(coro)
+            if not self._task3:
+                coro = ftms.disconnect()
+                self._task3 = self.hass.async_create_task(coro)
 
-                if not self._discovery_task.done():
-                    uncompleted_task, action = self._discovery_task, "discovering"
-
-        if not uncompleted_task:
-            if not self._close_task:
-                self._close_task = self.hass.async_create_task(self._ftms.disconnect())
-
-            if not self._close_task.done():
-                uncompleted_task, action = self._close_task, "closing"
+            if not self._task3.done():
+                uncompleted_task, action = self._task3, "closing"
 
         if uncompleted_task:
             return self.async_show_progress(
@@ -239,17 +236,15 @@ class FTMSConfigFlow(ConfigFlow, domain=DOMAIN):
             )
 
         self._suggested_sensors = list(
-            self._ftms.live_properties
-            if self._discovery_task
-            else self._ftms.supported_properties
+            ftms.live_properties if self._task2 else ftms.supported_properties
         )
 
-        _LOGGER.debug(f"Device Information: {self._ftms.device_info}")
-        _LOGGER.debug(f"Machine type: {self._ftms.machine_type!r}")
-        _LOGGER.debug(f"Available sensors: {self._ftms.available_properties}")
-        _LOGGER.debug(f"Supported settings: {self._ftms.supported_settings}")
-        _LOGGER.debug(f"Supported ranges: {self._ftms.supported_ranges}")
-        _LOGGER.debug(f"Suggested sensors: {self._suggested_sensors}")
+        _LOGGER.debug("Device Information: %s", ftms.device_info)
+        _LOGGER.debug("Machine type: %r", ftms.machine_type)
+        _LOGGER.debug("Available sensors: %s", ftms.available_properties)
+        _LOGGER.debug("Supported settings: %s", ftms.supported_settings)
+        _LOGGER.debug("Supported ranges: %s", ftms.supported_ranges)
+        _LOGGER.debug("Suggested sensors: %s", self._suggested_sensors)
 
         return self.async_show_progress_done(next_step_id="information")
 
