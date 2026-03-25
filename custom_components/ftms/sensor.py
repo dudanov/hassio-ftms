@@ -303,13 +303,10 @@ class FtmsSensorEntity(FtmsEntity, SensorEntity):
     def __init__(self, entry, description) -> None:
         super().__init__(entry, description)
 
-        if (x := self.ftms.get_property(self.key)) is None:
-            x = 0
+        if (value := self.ftms.get_property(self.key)) is None:
+            value = 0
 
-        elif isinstance(x, Enum):
-            x = x.name.lower()
-
-        self._attr_native_value = x
+        self._attr_native_value = self._normalize_value(value)
 
     @callback
     def _handle_coordinator_update(self) -> None:
@@ -318,8 +315,16 @@ class FtmsSensorEntity(FtmsEntity, SensorEntity):
         e = self.coordinator.data
 
         if e.event_id == "update" and (value := e.event_data.get(self.key)) is not None:
-            if isinstance(value, Enum):
-                value = value.name.lower()
-
-            self._attr_native_value = value
+            self._attr_native_value = self._normalize_value(value)
             self.async_write_ha_state()
+
+    def _normalize_value(self, value):
+        if isinstance(value, Enum):
+            value = value.name.lower()
+
+            if self.device_class == SensorDeviceClass.ENUM:
+                options = list(self.options or [])
+                if value not in options:
+                    self._attr_options = [*options, value]
+
+        return value
