@@ -274,6 +274,9 @@
     "connection_failed": {
       "message": "Failed connect to Fitness machine. Make sure it is turned on and not in use by another application."
     },
+    "startup_timeout": {
+      "message": "Timed out while initializing the fitness machine during Home Assistant startup. Home Assistant will retry automatically. Make sure the device is turned on and not in use by another application."
+    },
     "ftms_error": {
       "message": "Fitness device probably switched to another protocol, such as FitShow. Try reboot your device."
     }

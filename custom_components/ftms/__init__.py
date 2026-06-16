@@ -1,5 +1,7 @@
 """The FTMS integration."""
 
+import asyncio
+from contextlib import suppress
 import logging
 
 import pyftms
@@ -32,6 +34,25 @@ _LOGGER = logging.getLogger(__name__)
 
 type FtmsConfigEntry = ConfigEntry[FtmsData]
 
+STARTUP_TIMEOUT = 60
+
+
+def _entry_is_current(hass: HomeAssistant, entry: FtmsConfigEntry) -> bool:
+    return hass.config_entries.async_get_entry(entry.entry_id) is entry
+
+
+def _entry_title(
+    device_info: dict[str, str], name: str | None, address: str, unique_id: str
+) -> str:
+    manufacturer = device_info.get("manufacturer", "FTMS")
+    model = device_info.get("model")
+    if not model and name and name != address:
+        model = name
+    model = model or "GENERIC"
+    suffix = device_info.get("serial_number", unique_id)
+
+    return " ".join((manufacturer, model, f"({suffix})"))
+
 
 async def async_unload_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> bool:
     """Unload a config entry."""
@@ -45,6 +66,12 @@ async def async_unload_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> boo
 
 async def async_setup_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> bool:
     """Set up device from a config entry."""
+
+    if (
+        (runtime_data := getattr(entry, "runtime_data", None)) is not None
+        and runtime_data.ftms.is_connected
+    ):
+        return True
 
     address: str = entry.data[CONF_ADDRESS]
 
@@ -70,10 +97,47 @@ async def async_setup_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> bool
     coordinator = DataCoordinator(hass, ftms)
 
     try:
-        await ftms.connect()
+        async with asyncio.timeout(STARTUP_TIMEOUT):
+            await ftms.connect()
+
+    except TimeoutError as exc:
+        _LOGGER.warning(
+            "Timed out while initializing FTMS device %s during startup; "
+            "Home Assistant will retry setup automatically: %s",
+            address,
+            exc,
+        )
+        with suppress(BleakError, TimeoutError, asyncio.CancelledError):
+            await ftms.disconnect()
+        raise ConfigEntryNotReady(translation_key="startup_timeout") from exc
+
+    except asyncio.CancelledError as exc:
+        if hass.is_stopping:
+            raise
+        _LOGGER.warning(
+            "Cancelled while initializing FTMS device %s during startup; "
+            "Home Assistant will retry setup automatically: %s",
+            address,
+            exc,
+        )
+        with suppress(BleakError, TimeoutError, asyncio.CancelledError):
+            await ftms.disconnect()
+        raise ConfigEntryNotReady(translation_key="connection_failed") from exc
 
     except BleakError as exc:
+        _LOGGER.warning(
+            "Unable to initialize FTMS device %s during startup; "
+            "Home Assistant will retry setup automatically: %s",
+            address,
+            exc,
+        )
+        with suppress(BleakError, TimeoutError, asyncio.CancelledError):
+            await ftms.disconnect()
         raise ConfigEntryNotReady(translation_key="connection_failed") from exc
+
+    if not _entry_is_current(hass, entry):
+        await ftms.disconnect()
+        return False
 
     assert ftms.machine_type.name
 
@@ -88,6 +152,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> bool
     ).lower()
 
     _LOGGER.debug(f"Registered new FTMS device. UniqueID is '{unique_id}'.")
+
+    title = _entry_title(ftms.device_info, ftms.name, ftms.address, unique_id)
+    if title != entry.title:
+        hass.config_entries.async_update_entry(entry, title=title)
 
     device_info = dr.DeviceInfo(
         connections={(dr.CONNECTION_BLUETOOTH, ftms.address)},
@@ -124,6 +192,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: FtmsConfigEntry) -> bool
             bluetooth.BluetoothScanningMode.ACTIVE,
         )
     )
+
+    if not _entry_is_current(hass, entry):
+        await ftms.disconnect()
+        return False
 
     # Platforms initialization
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
