@@ -57,15 +57,13 @@ _ELEVATION_GAIN_POSITIVE = SensorEntityDescription(
 
 _ENERGY_PER_HOUR = SensorEntityDescription(
     key=c.ENERGY_PER_HOUR,
-    device_class=SensorDeviceClass.ENERGY,
-    native_unit_of_measurement=UnitOfEnergy.KILO_CALORIE,
+    native_unit_of_measurement="kcal/h",
     state_class=SensorStateClass.MEASUREMENT,
 )
 
 _ENERGY_PER_MINUTE = SensorEntityDescription(
     key=c.ENERGY_PER_MINUTE,
-    device_class=SensorDeviceClass.ENERGY,
-    native_unit_of_measurement=UnitOfEnergy.KILO_CALORIE,
+    native_unit_of_measurement="kcal/min",
     state_class=SensorStateClass.MEASUREMENT,
 )
 
