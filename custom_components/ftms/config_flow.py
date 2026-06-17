@@ -3,13 +3,19 @@
 from __future__ import annotations
 
 import asyncio
+from contextlib import suppress
+from dataclasses import dataclass
 import logging
 from typing import Any
 
 import voluptuous as vol
 from bluetooth_data_tools import human_readable_name
+from bleak import BleakClient
+from bleak.exc import BleakError
+from bleak_retry_connector import establish_connection
 from homeassistant.components.bluetooth import (
     BluetoothServiceInfoBleak,
+    async_ble_device_from_address,
     async_discovered_service_info,
     async_last_service_info,
 )
@@ -33,6 +39,110 @@ from pyftms import (
 from .const import DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
+
+FTMS_SERVICE_UUID = "1826"
+FTMS_DATA_CHARACTERISTIC_UUIDS = {
+    "2acd",  # Treadmill Data
+    "2ace",  # Cross Trainer Data
+    "2ad1",  # Rower Data
+    "2ad2",  # Indoor Bike Data
+}
+FTMS_VERIFY_TIMEOUT = 10
+
+try:
+    from pyftms import get_machine_type_from_advertisement
+
+except ImportError:
+    get_machine_type_from_advertisement = get_machine_type_from_service_data
+
+
+@dataclass(frozen=True)
+class VerificationResult:
+    """Result of active GATT verification."""
+
+    passed: bool
+    abort_reason: str | None = None
+
+
+def _address_suffix(address: str) -> str:
+    """Return a short suffix for Bluetooth debug logs."""
+
+    return address.replace(":", "")[-4:].upper()
+
+
+def _service_has_supported_data_characteristic(service: Any) -> bool:
+    """Return true if the FTMS service exposes a usable data characteristic."""
+
+    for char_uuid in FTMS_DATA_CHARACTERISTIC_UUIDS:
+        if not (char := service.get_characteristic(char_uuid)):
+            continue
+
+        if "notify" in getattr(char, "properties", ()):
+            return True
+
+    return False
+
+
+async def async_verify_ftms_device(
+    hass: Any, info: BluetoothServiceInfoBleak
+) -> VerificationResult:
+    """Verify that a Bluetooth candidate exposes usable FTMS GATT services."""
+
+    device = async_ble_device_from_address(hass, info.address) or info.device
+    client = None
+    service = None
+
+    try:
+        async with asyncio.timeout(FTMS_VERIFY_TIMEOUT):
+            client = await establish_connection(
+                client_class=BleakClient,
+                device=device,
+                name=info.name or info.address,
+                disconnected_callback=None,
+                services=[FTMS_SERVICE_UUID],
+            )
+
+            service = client.services.get_service(FTMS_SERVICE_UUID)
+
+    except Exception as exc:
+        _LOGGER.debug(
+            "Rejected FTMS Bluetooth candidate (%s): %s (%s)",
+            _address_suffix(info.address),
+            "verification_connection_failed",
+            exc,
+        )
+        return VerificationResult(
+            False,
+            abort_reason="cannot_verify_ftms",
+        )
+    finally:
+        if client and client.is_connected:
+            with suppress(BleakError, TimeoutError):
+                await client.disconnect()
+
+    if service is None:
+        _LOGGER.debug(
+            "Rejected FTMS Bluetooth candidate (%s): %s",
+            _address_suffix(info.address),
+            "gatt_missing_ftms_service",
+        )
+        return VerificationResult(
+            False,
+            abort_reason="not_ftms_device",
+        )
+
+    if not _service_has_supported_data_characteristic(service):
+        _LOGGER.debug(
+            "Rejected FTMS Bluetooth candidate (%s): %s",
+            _address_suffix(info.address),
+            "gatt_missing_required_characteristic",
+        )
+        return VerificationResult(
+            False,
+            abort_reason="not_ftms_device",
+        )
+
+    return VerificationResult(True)
 
 
 class OptionsFlowHandler(OptionsFlowWithConfigEntry):
@@ -118,9 +228,13 @@ class FTMSConfigFlow(ConfigFlow, domain=DOMAIN):
                 continue
 
             try:
-                get_machine_type_from_service_data(info.advertisement)
+                get_machine_type_from_advertisement(info.advertisement)
 
             except NotFitnessMachineError:
+                continue
+
+            verification = await async_verify_ftms_device(self.hass, info)
+            if not verification.passed:
                 continue
 
             self._discovered_devices[info.address] = info
@@ -144,13 +258,17 @@ class FTMSConfigFlow(ConfigFlow, domain=DOMAIN):
         """Handle the bluetooth discovery step."""
 
         try:
-            get_machine_type_from_service_data(info.advertisement)
+            get_machine_type_from_advertisement(info.advertisement)
 
         except NotFitnessMachineError:
             return self.async_abort(reason="not_supported")
 
         await self.async_set_unique_id(info.address, raise_on_progress=True)
         self._abort_if_unique_id_configured()
+
+        verification = await async_verify_ftms_device(self.hass, info)
+        if not verification.passed:
+            return self.async_abort(reason=verification.abort_reason)
 
         self._ble_info = info
         return await self.async_step_confirm()
@@ -254,9 +372,14 @@ class FTMSConfigFlow(ConfigFlow, domain=DOMAIN):
         if user_input is not None:
             unique_id = self._ftms.address
             await self.async_set_unique_id(unique_id, raise_on_progress=False)
+            self._abort_if_unique_id_configured()
 
             s1 = self._ftms.device_info.get("manufacturer", "FTMS")
-            s2 = self._ftms.device_info.get("model", "GENERIC")
+            s2 = (
+                self._ftms.device_info.get("model")
+                or self._ble_info.name
+                or "GENERIC"
+            )
             s3 = f"({self._ftms.device_info.get("serial_number", unique_id)})"
 
             return self.async_create_entry(
