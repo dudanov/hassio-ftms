@@ -113,7 +113,7 @@ class FTMSConfigFlow(ConfigFlow, domain=DOMAIN):
         already_configured = self._async_current_ids()
         self._discovered_devices = {}
 
-        for info in async_discovered_service_info(self.hass):
+        for info in list(async_discovered_service_info(self.hass)):
             if info.address in already_configured:
                 continue
 
